@@ -29,7 +29,7 @@ class HomePage extends StatelessWidget {
         MaterialButton(
           padding: EdgeInsets.all(17),
           onPressed: () {},
-          color: Colors.grey[300],
+          color: Colors.grey[100],
           shape: const CircleBorder(),
           child: Icon(
             _iconWidgets[index],
@@ -50,7 +50,7 @@ class HomePage extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 15),
       height: 60,
       width: 120,
-      color: Colors.grey[300],
+      color: Colors.grey[200],
     );
   }
 
@@ -109,7 +109,10 @@ class HomePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children:
                       List.generate(3, (index) => generateIcon(index + 3)),
-                )
+                ),
+                const SizedBox(
+                  height: 80,
+                ),
               ],
             ),
           )

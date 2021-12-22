@@ -23,10 +23,11 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pages[_currentPage],
+      extendBody: true,
       bottomNavigationBar: CurvedNavigationBar(
         index: 0,
         color: Colors.grey.shade300,
-        backgroundColor: const Color.fromARGB(0, 0, 0, 0),
+        backgroundColor: Colors.transparent,
         buttonBackgroundColor: Colors.grey.shade300,
         height: 65,
         animationDuration: const Duration(milliseconds: 300),
