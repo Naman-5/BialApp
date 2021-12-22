@@ -12,12 +12,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  var _currentPage = 0;
+  var _currentPage = 1;
 
   final _pages = [
     // TODO : Add pages for the options in bottom navigation bar
+    const FlightsPage(),
     HomePage(),
-    const FlightsPage()
+  ];
+
+  final _bottomIcons = [
+    Icons.flight_rounded,
+    Icons.home_filled,
+    Icons.question_answer,
   ];
   @override
   Widget build(BuildContext context) {
@@ -25,26 +31,19 @@ class _HomeScreenState extends State<HomeScreen> {
       body: _pages[_currentPage],
       extendBody: true,
       bottomNavigationBar: CurvedNavigationBar(
-        index: 0,
+        index: 1,
         color: Colors.grey.shade300,
         backgroundColor: Colors.transparent,
         buttonBackgroundColor: Colors.grey.shade300,
         height: 65,
         animationDuration: const Duration(milliseconds: 300),
-        items: const [
-          Icon(
-            Icons.home_filled,
-            size: 27,
+        items: List.generate(3, (index) {
+          return Icon(
+            _bottomIcons[index],
+            size: 30,
             color: Colors.grey,
-          ),
-          Icon(
-            Icons.flight_rounded,
-            size: 27,
-            color: Colors.grey,
-          ),
-          Icon(Icons.shopping_cart_rounded, size: 27, color: Colors.grey),
-          Icon(Icons.restaurant, color: Colors.grey, size: 27),
-        ],
+          );
+        }),
         onTap: (index) => {
           setState(() {
             _currentPage = index;

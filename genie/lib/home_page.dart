@@ -48,8 +48,8 @@ class HomePage extends StatelessWidget {
   Widget generateCards(index) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 15),
-      height: 60,
-      width: 120,
+      height: 100,
+      width: 200,
       color: Colors.grey[200],
     );
   }
@@ -57,6 +57,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Stack(
@@ -70,8 +71,7 @@ class HomePage extends StatelessWidget {
           ),
           Container(
             margin: EdgeInsets.only(top: height / 2.4),
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            width: MediaQuery.of(context).size.width,
+            width: width,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30.0), color: Colors.white),
             child: Column(
@@ -79,7 +79,7 @@ class HomePage extends StatelessWidget {
               children: [
                 Padding(
                     padding: const EdgeInsets.symmetric(
-                        vertical: 40, horizontal: 20),
+                        vertical: 40, horizontal: 40),
                     child: Text(
                       'Highlights',
                       style: TextStyle(
@@ -88,27 +88,33 @@ class HomePage extends StatelessWidget {
                           color: Colors.grey[500]),
                     )),
                 Container(
-                  height: 80,
-                  width: MediaQuery.of(context).size.width,
+                  height: 100,
+                  width: width,
                   child: ListView(
-                    children: List.generate(6, (index) => generateCards(index)),
+                    children: List.generate(4, (index) => generateCards(index)),
                     scrollDirection: Axis.horizontal,
                   ),
                 ),
                 const SizedBox(
                   height: 60,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: List.generate(3, generateIcon),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: List.generate(3, generateIcon),
+                  ),
                 ),
                 const SizedBox(
                   height: 15,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children:
-                      List.generate(3, (index) => generateIcon(index + 3)),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children:
+                        List.generate(3, (index) => generateIcon(index + 3)),
+                  ),
                 ),
                 const SizedBox(
                   height: 80,
