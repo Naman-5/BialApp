@@ -22,11 +22,8 @@ class _SignUpUI extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        const SizedBox(
-          height: 50,
-        ),
         Flexible(
-          flex: 0,
+          flex: 1,
           child: SvgPicture.asset(
             _airportLogoPath,
             height: 175,
@@ -34,7 +31,7 @@ class _SignUpUI extends StatelessWidget {
           fit: FlexFit.tight,
         ),
         Flexible(
-          flex: 0,
+          flex: 2,
           child: _SignUpTab(),
           fit: FlexFit.tight,
         ),
@@ -93,7 +90,7 @@ class _SignUpTabState extends State<_SignUpTab> with TickerProviderStateMixin {
         ),
         (defaultOption == loginIdentifier)
             ? SingleChildScrollView(
-                child: _LoginSectionUI(),
+                child: _LoginSection(),
               )
             : Column(
                 children: const [Text("Sign-up")],
@@ -103,26 +100,23 @@ class _SignUpTabState extends State<_SignUpTab> with TickerProviderStateMixin {
   }
 }
 
-class _LoginSectionUI extends StatelessWidget {
+class _LoginSection extends StatelessWidget {
   final userNameController = TextEditingController();
   final passwordController = TextEditingController();
   var _providedUserName;
   var _providedPassword;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-      decoration: BoxDecoration(
-          color: Colors.blue, borderRadius: BorderRadius.circular(20)),
+    return Card(
+      elevation: 5,
+      color: Colors.blue,
       child: Column(
-        children: <Widget>[
-          const SizedBox(
-            height: 20,
-          ),
+        children: [
+          // --------------------user name section------------------
           Row(
             children: const [
               SizedBox(
-                width: 25,
+                width: 20,
               ),
               Text(
                 "Username",
@@ -133,14 +127,17 @@ class _LoginSectionUI extends StatelessWidget {
           Row(
             children: [
               const SizedBox(
-                width: 25,
+                width: 20,
               ),
               Expanded(
                 child: TextField(
                   cursorColor: Colors.white,
+                  // textAlign: TextAlign.center,
                   decoration: const InputDecoration.collapsed(
-                      hintText: 'username@example.com',
-                      fillColor: Colors.white),
+                    hintText: 'username@example.com',
+                    border: UnderlineInputBorder(),
+                    fillColor: Colors.white,
+                  ),
                   onChanged: (String text) {
                     _providedUserName = text;
                   },
@@ -152,10 +149,11 @@ class _LoginSectionUI extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
+          // --------------------password section------------------
           Row(
             children: const [
               SizedBox(
-                width: 25,
+                width: 20,
               ),
               Text(
                 "Password",
@@ -174,7 +172,7 @@ class _LoginSectionUI extends StatelessWidget {
                   obscureText: true,
                   enableSuggestions: false,
                   decoration: const InputDecoration.collapsed(
-                      hintText: '********', fillColor: Colors.white),
+                      border: UnderlineInputBorder(), hintText: ''),
                   onChanged: (String text) {
                     _providedPassword = text;
                   },
@@ -183,25 +181,27 @@ class _LoginSectionUI extends StatelessWidget {
               )
             ],
           ),
-          const SizedBox(
-            height: 15,
-          ),
+          //--------------------------login button and others-----------------
           Row(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              const SizedBox(
-                width: 250,
+              // const SizedBox(
+              //   width: 250,
+              // ),
+              ElevatedButton(
+                onPressed: () {
+                  userNameController.clear();
+                  passwordController.clear();
+                },
+                child: const Icon(
+                  Icons.navigate_next,
+                  color: Colors.white,
+                ),
+                style: ElevatedButton.styleFrom(
+                    primary: Colors.greenAccent,
+                    shape: const CircleBorder(),
+                    padding: const EdgeInsets.all(15)),
               ),
-              OutlinedButton(
-                  onPressed: () {
-                    userNameController.clear();
-                    passwordController.clear();
-                  },
-                  child: const Icon(
-                    Icons.navigate_next,
-                    color: Colors.white,
-                  ),
-                  style: OutlinedButton.styleFrom(
-                      backgroundColor: Colors.greenAccent)),
             ],
           ),
           Row(
@@ -215,6 +215,9 @@ class _LoginSectionUI extends StatelessWidget {
                   height: 20,
                 ),
                 style: OutlinedButton.styleFrom(backgroundColor: Colors.white),
+              ),
+              const SizedBox(
+                width: 5,
               ),
               OutlinedButton(
                 onPressed: () {},
