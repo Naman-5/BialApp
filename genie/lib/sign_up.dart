@@ -92,8 +92,8 @@ class _SignUpTabState extends State<_SignUpTab> with TickerProviderStateMixin {
             ? SingleChildScrollView(
                 child: _LoginSection(),
               )
-            : Column(
-                children: const [Text("Sign-up")],
+            : SingleChildScrollView(
+                child: _SignUpForm(),
               ),
       ],
     );
@@ -108,129 +108,187 @@ class _LoginSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+        elevation: 5,
+        color: Colors.blue,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+          child: Column(
+            children: [
+              // --------------------user name section------------------
+              Row(
+                children: const [
+                  Text(
+                    "Username",
+                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      cursorColor: Colors.white,
+                      autocorrect: false,
+                      style: TextStyle(color: Colors.grey[800]),
+                      // textAlign: TextAlign.center,
+                      decoration: const InputDecoration.collapsed(
+                        hintText: 'username@example.com',
+                        border: UnderlineInputBorder(),
+                      ),
+                      onChanged: (String text) {
+                        _providedUserName = text;
+                      },
+                      controller: userNameController,
+                    ),
+                  )
+                ],
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              // --------------------password section------------------
+              Row(
+                children: const [
+                  Text(
+                    "Password",
+                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      style: TextStyle(color: Colors.grey[800]),
+                      cursorColor: Colors.white,
+                      obscureText: true,
+                      enableSuggestions: false,
+                      decoration: const InputDecoration.collapsed(
+                          border: UnderlineInputBorder(), hintText: '🔑'),
+                      onChanged: (String text) {
+                        _providedPassword = text;
+                      },
+                      controller: passwordController,
+                    ),
+                  )
+                ],
+              ),
+              //--------------------------login button and others-----------------
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  // const SizedBox(
+                  //   width: 250,
+                  // ),
+                  ElevatedButton(
+                    onPressed: () {
+                      userNameController.clear();
+                      passwordController.clear();
+                    },
+                    child: const Icon(
+                      Icons.navigate_next,
+                      color: Colors.white,
+                    ),
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.greenAccent,
+                        shape: const CircleBorder(),
+                        padding: const EdgeInsets.all(15)),
+                  ),
+                ],
+              ),
+              // sign-in with google or outlook
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  OutlinedButton(
+                    onPressed: () {},
+                    child: const Image(
+                      image: AssetImage(_googleLogo),
+                      width: 20,
+                      height: 20,
+                    ),
+                    style:
+                        OutlinedButton.styleFrom(backgroundColor: Colors.white),
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  OutlinedButton(
+                    onPressed: () {},
+                    child: const Image(
+                      image: AssetImage(_outlookLogo),
+                      width: 20,
+                      height: 20,
+                    ),
+                    style:
+                        OutlinedButton.styleFrom(backgroundColor: Colors.white),
+                  )
+                ],
+              ),
+            ],
+          ),
+        ));
+  }
+}
+
+class _SignUpForm extends StatelessWidget {
+  final fullNameController = TextEditingController();
+  var _providedFullName;
+  @override
+  Widget build(BuildContext context) {
+    return Card(
       elevation: 5,
       color: Colors.blue,
-      child: Column(
-        children: [
-          // --------------------user name section------------------
-          Row(
-            children: const [
-              SizedBox(
-                width: 20,
-              ),
-              Text(
-                "Username",
-                style: TextStyle(fontSize: 20),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              const SizedBox(
-                width: 20,
-              ),
-              Expanded(
-                child: TextField(
-                  cursorColor: Colors.white,
-                  // textAlign: TextAlign.center,
-                  decoration: const InputDecoration.collapsed(
-                    hintText: 'username@example.com',
-                    border: UnderlineInputBorder(),
-                    fillColor: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+        child: Column(
+          children: [
+            //-----------------Provided Full Name------------------
+            Row(
+              children: const [
+                Text(
+                  "Full Name",
+                  style: TextStyle(fontSize: 20, color: Colors.white),
+                )
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    cursorColor: Colors.white,
+                    autocorrect: false,
+                    style: TextStyle(color: Colors.grey[800]),
+                    // textAlign: TextAlign.center,
+                    decoration: const InputDecoration.collapsed(
+                      hintText: 'As on Govt. Issued ID 🆔',
+                      border: UnderlineInputBorder(),
+                    ),
+                    onChanged: (String text) {
+                      _providedFullName = text;
+                    },
+                    controller: fullNameController,
                   ),
-                  onChanged: (String text) {
-                    _providedUserName = text;
-                  },
-                  controller: userNameController,
-                ),
-              )
-            ],
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          // --------------------password section------------------
-          Row(
-            children: const [
-              SizedBox(
-                width: 20,
-              ),
-              Text(
-                "Password",
-                style: TextStyle(fontSize: 20),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              const SizedBox(
-                width: 25,
-              ),
-              Expanded(
-                child: TextField(
-                  cursorColor: Colors.white,
-                  obscureText: true,
-                  enableSuggestions: false,
-                  decoration: const InputDecoration.collapsed(
-                      border: UnderlineInputBorder(), hintText: ''),
-                  onChanged: (String text) {
-                    _providedPassword = text;
-                  },
-                  controller: passwordController,
-                ),
-              )
-            ],
-          ),
-          //--------------------------login button and others-----------------
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              // const SizedBox(
-              //   width: 250,
-              // ),
-              ElevatedButton(
-                onPressed: () {
-                  userNameController.clear();
-                  passwordController.clear();
-                },
-                child: const Icon(
-                  Icons.navigate_next,
-                  color: Colors.white,
-                ),
-                style: ElevatedButton.styleFrom(
-                    primary: Colors.greenAccent,
-                    shape: const CircleBorder(),
-                    padding: const EdgeInsets.all(15)),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              OutlinedButton(
-                onPressed: () {},
-                child: const Image(
-                  image: AssetImage(_googleLogo),
-                  width: 20,
-                  height: 20,
-                ),
-                style: OutlinedButton.styleFrom(backgroundColor: Colors.white),
-              ),
-              const SizedBox(
-                width: 5,
-              ),
-              OutlinedButton(
-                onPressed: () {},
-                child: const Image(
-                  image: AssetImage(_outlookLogo),
-                  width: 20,
-                  height: 20,
-                ),
-                style: OutlinedButton.styleFrom(backgroundColor: Colors.white),
-              )
-            ],
-          ),
-        ],
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            //----------------User Date of Birth-------------------
+            Row(
+              children: const [
+                Text(
+                  "Date of Birth",
+                  style: TextStyle(fontSize: 20, color: Colors.white),
+                )
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
