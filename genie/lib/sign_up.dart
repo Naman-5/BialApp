@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:genie/common_variables.dart';
+import 'sign_up_supporter.dart';
 
 const _airportLogoPath = "ImageAssets/airport_logo.svg";
 const _googleLogo = 'ImageAssets/googleLogo.png';
@@ -31,8 +33,10 @@ class _SignUpUI extends StatelessWidget {
           fit: FlexFit.tight,
         ),
         Flexible(
-          flex: 2,
-          child: _SignUpTab(),
+          flex: 4,
+          child: SingleChildScrollView(
+            child: _SignUpTab(),
+          ),
           fit: FlexFit.tight,
         ),
       ],
@@ -236,14 +240,23 @@ class _LoginSection extends StatelessWidget {
 
 class _SignUpForm extends StatelessWidget {
   final fullNameController = TextEditingController();
+  final mobileNumberController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  // ignore: prefer_typing_uninitialized_variables
   var _providedFullName;
+  // ignore: prefer_typing_uninitialized_variables
+  var _providedMobileNumber;
+  var _email;
+  var _password;
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 5,
+      clipBehavior: Clip.hardEdge,
       color: Colors.blue,
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+        padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
         child: Column(
           children: [
             //-----------------Provided Full Name------------------
@@ -251,7 +264,7 @@ class _SignUpForm extends StatelessWidget {
               children: const [
                 Text(
                   "Full Name",
-                  style: TextStyle(fontSize: 20, color: Colors.white),
+                  style: TextStyle(fontSize: 16, color: Colors.white),
                 )
               ],
             ),
@@ -283,8 +296,167 @@ class _SignUpForm extends StatelessWidget {
               children: const [
                 Text(
                   "Date of Birth",
-                  style: TextStyle(fontSize: 20, color: Colors.white),
+                  style: TextStyle(fontSize: 16, color: Colors.white),
                 )
+              ],
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            //---------------Gender Selector-----------------------
+            Row(
+              children: [
+                const Text(
+                  "Gender",
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                DropDownSelector(
+                  options: const ['Select', 'Male', 'Female', 'Others'],
+                  type: 'Gender',
+                ),
+              ],
+            ),
+            //----------------Nationality Selector--------------------
+            Row(
+              children: [
+                const Text(
+                  "Nationality",
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                DropDownSelector(
+                  options: nationalities,
+                  type: 'Nationality',
+                ),
+              ],
+            ),
+            //----------------Mobile Number Section----------------------
+            Row(
+              children: [
+                const Text(
+                  "Code",
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                DropDownSelector(options: mobileCodes, type: 'Codes'),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    cursorColor: Colors.white,
+                    autocorrect: false,
+                    keyboardType: TextInputType.phone,
+                    style: TextStyle(color: Colors.grey[800]),
+                    // textAlign: TextAlign.center,
+                    decoration: const InputDecoration.collapsed(
+                      hintText: 'Mobile Number 123-45-678',
+                      border: UnderlineInputBorder(),
+                    ),
+                    onChanged: (String text) {
+                      _providedMobileNumber = text;
+                    },
+                    controller: mobileNumberController,
+                  ),
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            // --------------------email-id section------------------
+            Row(
+              children: const [
+                Text(
+                  "Email-id",
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    cursorColor: Colors.white,
+                    autocorrect: false,
+                    style: TextStyle(color: Colors.grey[800]),
+                    // textAlign: TextAlign.center,
+                    decoration: const InputDecoration.collapsed(
+                      hintText: 'username@example.com',
+                      border: UnderlineInputBorder(),
+                    ),
+                    onChanged: (String text) {
+                      _email = text;
+                    },
+                    controller: emailController,
+                  ),
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            // --------------------password section------------------
+            Row(
+              children: const [
+                Text(
+                  "Password",
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    style: TextStyle(color: Colors.grey[800]),
+                    cursorColor: Colors.white,
+                    obscureText: true,
+                    enableSuggestions: false,
+                    decoration: const InputDecoration.collapsed(
+                        border: UnderlineInputBorder(), hintText: '🔑'),
+                    onChanged: (String text) {
+                      _password = text;
+                    },
+                    controller: passwordController,
+                  ),
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            //--
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                // const SizedBox(
+                //   width: 250,
+                // ),
+                ElevatedButton(
+                  onPressed: () {
+                    fullNameController.clear();
+                    mobileNumberController.clear();
+                    emailController.clear();
+                    passwordController.clear();
+                  },
+                  child: const Icon(
+                    Icons.navigate_next,
+                    color: Colors.white,
+                  ),
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.greenAccent,
+                      shape: const CircleBorder(),
+                      padding: const EdgeInsets.all(15)),
+                ),
               ],
             ),
           ],
