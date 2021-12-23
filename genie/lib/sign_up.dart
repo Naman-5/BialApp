@@ -13,7 +13,9 @@ class SignUP extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text("User Authentication Required"),
+      ),
       body: _SignUpUI(),
     );
   }
@@ -24,6 +26,9 @@ class _SignUpUI extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
+        const SizedBox(
+          height: 7,
+        ),
         Flexible(
           flex: 1,
           child: SvgPicture.asset(
@@ -438,9 +443,6 @@ class _SignUpForm extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                // const SizedBox(
-                //   width: 250,
-                // ),
                 ElevatedButton(
                   onPressed: () {
                     fullNameController.clear();
