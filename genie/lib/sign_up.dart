@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:genie/common_variables.dart';
+import 'sign_up_supporter.dart';
 
 const _airportLogoPath = "ImageAssets/airport_logo.svg";
 const _googleLogo = 'ImageAssets/googleLogo.png';
@@ -11,7 +13,9 @@ class SignUP extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text("User Authentication Required"),
+      ),
       body: _SignUpUI(),
     );
   }
@@ -22,6 +26,9 @@ class _SignUpUI extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
+        const SizedBox(
+          height: 7,
+        ),
         Flexible(
           flex: 1,
           child: SvgPicture.asset(
@@ -31,8 +38,10 @@ class _SignUpUI extends StatelessWidget {
           fit: FlexFit.tight,
         ),
         Flexible(
-          flex: 2,
-          child: _SignUpTab(),
+          flex: 4,
+          child: SingleChildScrollView(
+            child: _SignUpTab(),
+          ),
           fit: FlexFit.tight,
         ),
       ],
@@ -92,8 +101,8 @@ class _SignUpTabState extends State<_SignUpTab> with TickerProviderStateMixin {
             ? SingleChildScrollView(
                 child: _LoginSection(),
               )
-            : Column(
-                children: const [Text("Sign-up")],
+            : SingleChildScrollView(
+                child: _SignUpForm(),
               ),
       ],
     );
@@ -108,129 +117,352 @@ class _LoginSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 5,
-      color: Colors.blue,
-      child: Column(
-        children: [
-          // --------------------user name section------------------
-          Row(
-            children: const [
-              SizedBox(
-                width: 20,
-              ),
-              Text(
-                "Username",
-                style: TextStyle(fontSize: 20),
-              ),
-            ],
-          ),
-          Row(
+        elevation: 5,
+        color: Colors.blue,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+          child: Column(
             children: [
-              const SizedBox(
-                width: 20,
-              ),
-              Expanded(
-                child: TextField(
-                  cursorColor: Colors.white,
-                  // textAlign: TextAlign.center,
-                  decoration: const InputDecoration.collapsed(
-                    hintText: 'username@example.com',
-                    border: UnderlineInputBorder(),
-                    fillColor: Colors.white,
+              // --------------------user name section------------------
+              Row(
+                children: const [
+                  Text(
+                    "Username",
+                    style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
-                  onChanged: (String text) {
-                    _providedUserName = text;
-                  },
-                  controller: userNameController,
-                ),
-              )
-            ],
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          // --------------------password section------------------
-          Row(
-            children: const [
-              SizedBox(
-                width: 20,
+                ],
               ),
-              Text(
-                "Password",
-                style: TextStyle(fontSize: 20),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              const SizedBox(
-                width: 25,
-              ),
-              Expanded(
-                child: TextField(
-                  cursorColor: Colors.white,
-                  obscureText: true,
-                  enableSuggestions: false,
-                  decoration: const InputDecoration.collapsed(
-                      border: UnderlineInputBorder(), hintText: ''),
-                  onChanged: (String text) {
-                    _providedPassword = text;
-                  },
-                  controller: passwordController,
-                ),
-              )
-            ],
-          ),
-          //--------------------------login button and others-----------------
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              // const SizedBox(
-              //   width: 250,
-              // ),
-              ElevatedButton(
-                onPressed: () {
-                  userNameController.clear();
-                  passwordController.clear();
-                },
-                child: const Icon(
-                  Icons.navigate_next,
-                  color: Colors.white,
-                ),
-                style: ElevatedButton.styleFrom(
-                    primary: Colors.greenAccent,
-                    shape: const CircleBorder(),
-                    padding: const EdgeInsets.all(15)),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              OutlinedButton(
-                onPressed: () {},
-                child: const Image(
-                  image: AssetImage(_googleLogo),
-                  width: 20,
-                  height: 20,
-                ),
-                style: OutlinedButton.styleFrom(backgroundColor: Colors.white),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      cursorColor: Colors.white,
+                      autocorrect: false,
+                      style: TextStyle(color: Colors.grey[800]),
+                      // textAlign: TextAlign.center,
+                      decoration: const InputDecoration.collapsed(
+                        hintText: 'username@example.com',
+                        border: UnderlineInputBorder(),
+                      ),
+                      onChanged: (String text) {
+                        _providedUserName = text;
+                      },
+                      controller: userNameController,
+                    ),
+                  )
+                ],
               ),
               const SizedBox(
-                width: 5,
+                height: 15,
               ),
-              OutlinedButton(
-                onPressed: () {},
-                child: const Image(
-                  image: AssetImage(_outlookLogo),
-                  width: 20,
-                  height: 20,
-                ),
-                style: OutlinedButton.styleFrom(backgroundColor: Colors.white),
-              )
+              // --------------------password section------------------
+              Row(
+                children: const [
+                  Text(
+                    "Password",
+                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      style: TextStyle(color: Colors.grey[800]),
+                      cursorColor: Colors.white,
+                      obscureText: true,
+                      enableSuggestions: false,
+                      decoration: const InputDecoration.collapsed(
+                          border: UnderlineInputBorder(), hintText: '🔑'),
+                      onChanged: (String text) {
+                        _providedPassword = text;
+                      },
+                      controller: passwordController,
+                    ),
+                  )
+                ],
+              ),
+              //--------------------------login button and others-----------------
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  // const SizedBox(
+                  //   width: 250,
+                  // ),
+                  ElevatedButton(
+                    onPressed: () {
+                      userNameController.clear();
+                      passwordController.clear();
+                    },
+                    child: const Icon(
+                      Icons.navigate_next,
+                      color: Colors.white,
+                    ),
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.greenAccent,
+                        shape: const CircleBorder(),
+                        padding: const EdgeInsets.all(15)),
+                  ),
+                ],
+              ),
+              // sign-in with google or outlook
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  OutlinedButton(
+                    onPressed: () {},
+                    child: const Image(
+                      image: AssetImage(_googleLogo),
+                      width: 20,
+                      height: 20,
+                    ),
+                    style:
+                        OutlinedButton.styleFrom(backgroundColor: Colors.white),
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  OutlinedButton(
+                    onPressed: () {},
+                    child: const Image(
+                      image: AssetImage(_outlookLogo),
+                      width: 20,
+                      height: 20,
+                    ),
+                    style:
+                        OutlinedButton.styleFrom(backgroundColor: Colors.white),
+                  )
+                ],
+              ),
             ],
           ),
-        ],
+        ));
+  }
+}
+
+class _SignUpForm extends StatelessWidget {
+  final fullNameController = TextEditingController();
+  final mobileNumberController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  // ignore: prefer_typing_uninitialized_variables
+  var _providedFullName;
+  // ignore: prefer_typing_uninitialized_variables
+  var _providedMobileNumber;
+  var _email;
+  var _password;
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 5,
+      clipBehavior: Clip.hardEdge,
+      color: Colors.blue,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+        child: Column(
+          children: [
+            //-----------------Provided Full Name------------------
+            Row(
+              children: const [
+                Text(
+                  "Full Name",
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                )
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    cursorColor: Colors.white,
+                    autocorrect: false,
+                    style: TextStyle(color: Colors.grey[800]),
+                    // textAlign: TextAlign.center,
+                    decoration: const InputDecoration.collapsed(
+                      hintText: 'As on Govt. Issued ID 🆔',
+                      border: UnderlineInputBorder(),
+                    ),
+                    onChanged: (String text) {
+                      _providedFullName = text;
+                    },
+                    controller: fullNameController,
+                  ),
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            //----------------User Date of Birth-------------------
+            Row(
+              children: const [
+                Text(
+                  "Date of Birth",
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            //---------------Gender Selector-----------------------
+            Row(
+              children: [
+                const Text(
+                  "Gender",
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                DropDownSelector(
+                  options: const ['Select', 'Male', 'Female', 'Others'],
+                  type: 'Gender',
+                ),
+              ],
+            ),
+            //----------------Nationality Selector--------------------
+            Row(
+              children: [
+                const Text(
+                  "Nationality",
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                DropDownSelector(
+                  options: nationalities,
+                  type: 'Nationality',
+                ),
+              ],
+            ),
+            //----------------Mobile Number Section----------------------
+            Row(
+              children: [
+                const Text(
+                  "Code",
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                DropDownSelector(options: mobileCodes, type: 'Codes'),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    cursorColor: Colors.white,
+                    autocorrect: false,
+                    keyboardType: TextInputType.phone,
+                    style: TextStyle(color: Colors.grey[800]),
+                    // textAlign: TextAlign.center,
+                    decoration: const InputDecoration.collapsed(
+                      hintText: 'Mobile Number 123-45-678',
+                      border: UnderlineInputBorder(),
+                    ),
+                    onChanged: (String text) {
+                      _providedMobileNumber = text;
+                    },
+                    controller: mobileNumberController,
+                  ),
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            // --------------------email-id section------------------
+            Row(
+              children: const [
+                Text(
+                  "Email-id",
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    cursorColor: Colors.white,
+                    autocorrect: false,
+                    style: TextStyle(color: Colors.grey[800]),
+                    // textAlign: TextAlign.center,
+                    decoration: const InputDecoration.collapsed(
+                      hintText: 'username@example.com',
+                      border: UnderlineInputBorder(),
+                    ),
+                    onChanged: (String text) {
+                      _email = text;
+                    },
+                    controller: emailController,
+                  ),
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            // --------------------password section------------------
+            Row(
+              children: const [
+                Text(
+                  "Password",
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    style: TextStyle(color: Colors.grey[800]),
+                    cursorColor: Colors.white,
+                    obscureText: true,
+                    enableSuggestions: false,
+                    decoration: const InputDecoration.collapsed(
+                        border: UnderlineInputBorder(), hintText: '🔑'),
+                    onChanged: (String text) {
+                      _password = text;
+                    },
+                    controller: passwordController,
+                  ),
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            //--
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    fullNameController.clear();
+                    mobileNumberController.clear();
+                    emailController.clear();
+                    passwordController.clear();
+                  },
+                  child: const Icon(
+                    Icons.navigate_next,
+                    color: Colors.white,
+                  ),
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.greenAccent,
+                      shape: const CircleBorder(),
+                      padding: const EdgeInsets.all(15)),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
