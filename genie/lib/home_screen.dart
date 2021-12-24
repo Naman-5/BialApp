@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:genie/home_page.dart';
 import 'package:genie/flights_page.dart';
+import 'package:genie/chat_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key, title}) : super(key: key);
@@ -45,9 +46,17 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         }),
         onTap: (index) => {
-          setState(() {
-            _currentPage = index;
-          })
+          if (index == 2)
+            {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => ChatPage()))
+            }
+          else
+            {
+              setState(() {
+                _currentPage = index;
+              })
+            }
         },
       ),
     );
