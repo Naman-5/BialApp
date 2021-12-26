@@ -109,11 +109,12 @@ class _SignUpTabState extends State<_SignUpTab> with TickerProviderStateMixin {
   }
 }
 
+// ignore: must_be_immutable
 class _LoginSection extends StatelessWidget {
   final userNameController = TextEditingController();
   final passwordController = TextEditingController();
-  var _providedUserName;
-  var _providedPassword;
+  var _providedUserName = '';
+  var _providedPassword = '';
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -243,17 +244,18 @@ class _LoginSection extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class _SignUpForm extends StatelessWidget {
   final fullNameController = TextEditingController();
   final mobileNumberController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   // ignore: prefer_typing_uninitialized_variables
-  var _providedFullName;
+  var _providedFullName = "";
   // ignore: prefer_typing_uninitialized_variables
-  var _providedMobileNumber;
-  var _email;
-  var _password;
+  var _providedMobileNumber = '';
+  var _email = '';
+  var _password = '';
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -302,11 +304,9 @@ class _SignUpForm extends StatelessWidget {
                 Text(
                   "Date of Birth",
                   style: TextStyle(fontSize: 16, color: Colors.white),
-                )
+                ),
+                DateSelectButton(),
               ],
-            ),
-            const SizedBox(
-              height: 15,
             ),
             //---------------Gender Selector-----------------------
             Row(
