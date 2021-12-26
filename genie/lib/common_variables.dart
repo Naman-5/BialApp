@@ -1,6 +1,7 @@
 var selectedGender = "Select";
 var selectedNationality = "Select";
 var selectedCode = "Select";
+var selectedDate = '0000-00-00 00:00:00.000';
 const nationalities = [
   'Select',
   'Afghanistan',
