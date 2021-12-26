@@ -25,7 +25,7 @@ class TextMessageBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
-      margin: const EdgeInsets.only(top: 5, right: 15, left: 8),
+      margin: const EdgeInsets.only(bottom: 5, right: 15, left: 8),
       constraints: const BoxConstraints(maxWidth: 270),
       child: Text(message),
       decoration: BoxDecoration(
@@ -76,16 +76,19 @@ class _ChatPageState extends State<ChatPage> {
 
   void handleSubmitted(String message) {
     _textController.clear();
-    setState(() {
-      _messages.insert(0, {'message': message, 'isUsrMsg': true});
-    });
-    _focusNode.requestFocus();
+    message = message.trim();
+    if (message.isNotEmpty) {
+      setState(() {
+        _messages.insert(0, {'message': message, 'isUsrMsg': true});
+      });
+      _focusNode.requestFocus();
+    }
   }
 
   Widget getTextInputField() {
     return Container(
       alignment: Alignment.bottomCenter,
-      padding: const EdgeInsets.fromLTRB(18, 15, 0, 15),
+      padding: const EdgeInsets.fromLTRB(18, 5, 0, 15),
       child: Row(children: [
         Expanded(
           child: Container(
@@ -148,6 +151,7 @@ class _ChatPageState extends State<ChatPage> {
                       : getReplyRow(_messages[index]['message'].toString())),
             ),
           ),
+          const Divider(height: 5),
           getTextInputField()
         ],
       ),
