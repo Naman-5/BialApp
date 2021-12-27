@@ -5,6 +5,6 @@ import 'sign_up.dart';
 void main() {
   runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: SignUP(),
+    home: HomeScreen(),
   ));
 }
