@@ -1,9 +1,9 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-
+import 'package:genie/bottom_nav.dart';
 import 'package:genie/home_page.dart';
 import 'package:genie/flights_page.dart';
 import 'package:genie/chat_page.dart';
+import 'package:genie/retail/shopslistpage.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key, title}) : super(key: key);
@@ -13,50 +13,41 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  var _currentPage = 1;
+  var _currentPage = 0;
 
-  final _pages = [
-    // TODO : Add pages for the options in bottom navigation bar
-    const FlightsPage(),
-    HomePage(),
-  ];
-
-  final _bottomIcons = [
-    Icons.flight_rounded,
-    Icons.home_filled,
-    Icons.question_answer,
+  final List<BarItem> _barItems = [
+    BarItem(
+        label: 'Home',
+        iconData: Icons.home_outlined,
+        color: Colors.indigo,
+        page: HomePage()),
+    BarItem(
+        label: 'Flights',
+        iconData: Icons.flight_rounded,
+        color: Colors.pinkAccent,
+        page: const FlightsPage()),
+    BarItem(
+        label: 'Shop',
+        iconData: Icons.shopping_bag_outlined,
+        color: Colors.yellow.shade800,
+        page: RetailHomePage()),
+    BarItem(
+        label: 'ChatBot',
+        iconData: Icons.question_answer_outlined,
+        color: Colors.cyan,
+        navigateToPage: false,
+        page: const ChatPage())
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_currentPage],
-      extendBody: true,
-      bottomNavigationBar: CurvedNavigationBar(
-        index: 1,
-        color: Colors.grey.shade300,
-        backgroundColor: Colors.transparent,
-        buttonBackgroundColor: Colors.grey.shade300,
-        height: 65,
-        animationDuration: const Duration(milliseconds: 300),
-        items: List.generate(3, (index) {
-          return Icon(
-            _bottomIcons[index],
-            size: 30,
-            color: Colors.grey,
-          );
-        }),
-        onTap: (index) => {
-          if (index == 2)
-            {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => ChatPage()))
-            }
-          else
-            {
-              setState(() {
-                _currentPage = index;
-              })
-            }
+      body: _barItems[_currentPage].page,
+      bottomNavigationBar: CustomBottomNavBar(
+        barItems: _barItems,
+        onTap: (index) {
+          setState(() {
+            _currentPage = index;
+          });
         },
       ),
     );
