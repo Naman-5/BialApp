@@ -8,7 +8,7 @@ class HomePage extends StatelessWidget {
     Icons.arrow_back_ios,
     Icons.arrow_back_ios,
     Icons.arrow_back_ios,
-    Icons.arrow_back_ios,
+    Icons.contact_page_sharp,
   ];
 
   final _iconLabels = [
@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
     'sample',
     'sample',
     'sample',
-    'sample',
+    'Airline Contacts',
   ];
 
   final _iconHandlers = []; // TODO
