@@ -1,49 +1,62 @@
 import 'package:flutter/material.dart';
+import 'package:genie/contact_info.dart';
 
-class HomePage extends StatelessWidget {
-  HomePage({Key? key}) : super(key: key);
-  final _iconWidgets = const [
-    Icons.arrow_back_ios,
-    Icons.arrow_back_ios,
-    Icons.arrow_back_ios,
-    Icons.arrow_back_ios,
-    Icons.arrow_back_ios,
-    Icons.contact_page_sharp,
-  ];
+class HomePageIcons extends StatelessWidget {
+  const HomePageIcons(
+      {Key? key,
+      required this.iconData,
+      required this.label,
+      required this.navigateTo})
+      : super(key: key);
 
-  final _iconLabels = [
-    'sample',
-    'sample',
-    'sample',
-    'sample',
-    'sample',
-    'Airline Contacts',
-  ];
+  final IconData iconData;
+  final String label;
+  final Widget navigateTo;
 
-  final _iconHandlers = []; // TODO
-
-  Widget generateIcon(index) {
+  @override
+  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        MaterialButton(
-          padding: EdgeInsets.all(17),
-          onPressed: () {},
-          color: Colors.grey[100],
-          shape: const CircleBorder(),
-          child: Icon(
-            _iconWidgets[index],
-            size: 25,
-            color: Colors.grey[600],
+        InkWell(
+          onTap: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (builder) => navigateTo));
+          },
+          child: Container(
+            margin: const EdgeInsets.fromLTRB(20, 30, 20, 10),
+            padding: const EdgeInsets.all(15),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.grey[100],
+            ),
+            child: Icon(
+              iconData,
+              color: Colors.grey,
+              size: 35,
+            ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 15),
-          child: Text(_iconLabels[index]),
+        Text(
+          label,
+          style: TextStyle(
+            color: Colors.grey[600],
+          ),
         )
       ],
     );
   }
+}
+
+class HomePage extends StatelessWidget {
+  HomePage({Key? key}) : super(key: key);
+
+  final List<HomePageIcons> _homePageIcons = const [
+    HomePageIcons(
+        iconData: Icons.contact_page_outlined,
+        label: 'Airline Info',
+        navigateTo: AirlineContact()),
+  ];
 
   Widget generateCards(index) {
     return Container(
@@ -96,24 +109,14 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  height: 60,
+                  height: 20,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: List.generate(3, generateIcon),
-                  ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children:
-                        List.generate(3, (index) => generateIcon(index + 3)),
+                  child: Center(
+                    child: Wrap(
+                        alignment: WrapAlignment.spaceEvenly,
+                        children: _homePageIcons),
                   ),
                 ),
                 const SizedBox(
