@@ -479,3 +479,5 @@ const mobileCodes = [
   " +255 - Zanzibar ",
   " +263 - Zimbabwe ",
 ];
+
+var airlineDetails = [];
