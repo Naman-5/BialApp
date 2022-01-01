@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:genie/common_variables.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class AirlineContact extends StatelessWidget {
@@ -21,38 +22,7 @@ class AirlineContact extends StatelessWidget {
 }
 
 class _ButtonGrid extends StatelessWidget {
-  final _airlineData = [
-    {
-      'Title': 'Vistara',
-      'LogoPath':
-          'https://storageaccountbial8bd8.blob.core.windows.net/images/vistara.png',
-      'Website': 'https://www.airvistara.com/in/en'
-    },
-    {
-      'Title': 'Air-India',
-      'LogoPath':
-          'https://storageaccountbial8bd8.blob.core.windows.net/images/air-india-logo.png',
-      'Website': 'https://www.airindia.in/index.htm'
-    },
-    {
-      'Title': 'Indigo',
-      'LogoPath':
-          'https://storageaccountbial8bd8.blob.core.windows.net/images/indigo.png',
-      'Website': 'https://www.goindigo.in/'
-    },
-    {
-      'Title': 'Spice-Jet',
-      'LogoPath':
-          'https://storageaccountbial8bd8.blob.core.windows.net/images/spice.jpeg',
-      'Website': 'https://www.spicejet.com/'
-    },
-    {
-      'Title': 'Trujet',
-      'LogoPath':
-          'https://storageaccountbial8bd8.blob.core.windows.net/images/trujet.jpeg',
-      'Website': 'https://www.trujet.com/#/home'
-    }
-  ];
+  final _airlineData = airlineDetails;
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
@@ -82,9 +52,13 @@ class _AirlineDetail extends StatelessWidget {
             height: 10,
           ),
           Expanded(
-              child: Image(
-            image: NetworkImage(path),
-            fit: BoxFit.cover,
+              child: SizedBox(
+            child: Image(
+              image: NetworkImage(path),
+              fit: BoxFit.cover,
+            ),
+            height: 100,
+            width: 165,
           )),
           TextButton(
               onPressed: () {
