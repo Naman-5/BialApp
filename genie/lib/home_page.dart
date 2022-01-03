@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:genie/contact_info.dart';
+import 'package:genie/lost_found.dart';
 
 class HomePageIcons extends StatelessWidget {
   const HomePageIcons(
@@ -56,6 +57,10 @@ class HomePage extends StatelessWidget {
         iconData: Icons.contact_page_outlined,
         label: 'Airline Info',
         navigateTo: AirlineContact()),
+    HomePageIcons(
+        iconData: Icons.luggage_outlined,
+        label: 'Lost&Found',
+        navigateTo: LostFoundPage())
   ];
 
   Widget generateCards(index) {
