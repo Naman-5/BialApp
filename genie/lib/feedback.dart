@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'helper/check_signin.dart';
-import 'common_variables.dart';
 import '../sign_up.dart';
 
 // ignore: must_be_immutable
@@ -16,7 +15,6 @@ class FeedBackForm extends StatelessWidget {
       print('Inside False');
       toggle = false;
       MaintainPageStack.pages.add("FeedBack");
-      print(MaintainPageStack.pages);
       MaintainPageStack.top += 1;
     } else {
       print('inside true');

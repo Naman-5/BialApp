@@ -1,7 +1,11 @@
+import 'dart:convert';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:genie/common_variables.dart';
 import 'sign_up_supporter.dart';
+import 'home_screen.dart';
+import 'package:http/http.dart' as http;
 
 const _airportLogoPath = "ImageAssets/airport_logo.svg";
 const _googleLogo = 'ImageAssets/googleLogo.png';
@@ -444,7 +448,37 @@ class _SignUpForm extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    var url = Uri.parse(
+                        'https://bialapp.azurewebsites.net/api/newusertrigger?code=5ObVhvVPiMKfal7ih6qLfCwSzXvdkJWWtO5tGfGwqcZFg5x31tNIbg%3D%3D');
+                    try {
+                      var response = await http.post(url,
+                          body: json.encode({
+                            'id': _email,
+                            'fullName': _providedFullName,
+                            'DOB': selectedDate,
+                            'gender': selectedGender.toLowerCase(),
+                            'nationality': selectedNationality,
+                            'code': selectedCode.split('-')[0],
+                            'mobileNumber': _providedMobileNumber,
+                            'password': _password,
+                            'method': 'in-app'
+                          }));
+                      var token = json.decode(response.body);
+                      final storage = FlutterSecureStorage();
+                      await storage.write(
+                          key: 'signInToken', value: token['token']);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HomeScreen()));
+                    } on Exception {
+                      print(
+                          "$_email \n $_providedFullName \n $selectedDate \n ${selectedGender.toLowerCase()} \n$selectedNationality");
+                      print(
+                          '$selectedCode \n $_providedMobileNumber \n $_password');
+                      print('Sign-Up error');
+                    }
                     fullNameController.clear();
                     mobileNumberController.clear();
                     emailController.clear();

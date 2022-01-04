@@ -1,4 +1,3 @@
-import '../common_variables.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 const _key = "signInToken";
@@ -13,4 +12,12 @@ class CheckSignIn {
       MaintainPageStack.keyCheckValue = false;
     }
   }
+}
+
+class MaintainPageStack {
+  static bool keyCheck = false;
+  static int top = -1;
+  static var pages = [];
+
+  static set keyCheckValue(keyCheck) => keyCheck;
 }
