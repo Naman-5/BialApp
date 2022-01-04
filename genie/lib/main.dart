@@ -8,6 +8,6 @@ void main() async {
   await AirlineResourceRequest.getContacts();
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: FeedBackForm(),
+    home: HomeScreen(),
   ));
 }

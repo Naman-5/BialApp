@@ -465,19 +465,21 @@ class _SignUpForm extends StatelessWidget {
                             'method': 'in-app'
                           }));
                       var token = json.decode(response.body);
-                      final storage = FlutterSecureStorage();
+                      const storage = FlutterSecureStorage();
                       await storage.write(
                           key: 'signInToken', value: token['token']);
+                      print(token['token']);
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => HomeScreen()));
+                              builder: (context) => const HomeScreen()));
                     } on Exception {
-                      print(
-                          "$_email \n $_providedFullName \n $selectedDate \n ${selectedGender.toLowerCase()} \n$selectedNationality");
-                      print(
-                          '$selectedCode \n $_providedMobileNumber \n $_password');
-                      print('Sign-Up error');
+                      print('failed');
+                      fullNameController.text = 'Failed Sign-up';
+                      mobileNumberController.text = 'Failed Sign-up';
+                      emailController.text = 'Failed Sign-up';
+                      passwordController.text = 'Failed Sign-up';
+                      Future.delayed(const Duration(seconds: 5), () {});
                     }
                     fullNameController.clear();
                     mobileNumberController.clear();

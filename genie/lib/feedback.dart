@@ -14,8 +14,6 @@ class FeedBackForm extends StatelessWidget {
     if (MaintainPageStack.keyCheck == false) {
       print('Inside False');
       toggle = false;
-      MaintainPageStack.pages.add("FeedBack");
-      MaintainPageStack.top += 1;
     } else {
       print('inside true');
       toggle = true;

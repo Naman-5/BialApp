@@ -6,9 +6,10 @@ class CheckSignIn {
   final storage = const FlutterSecureStorage();
   Future<void> check() async {
     try {
-      await storage.read(key: _key);
-      MaintainPageStack.keyCheckValue = true;
+      print('true side');
+      MaintainPageStack.keyCheckValue = await storage.containsKey(key: _key);
     } on TypeError {
+      print('false side');
       MaintainPageStack.keyCheckValue = false;
     }
   }
@@ -16,8 +17,5 @@ class CheckSignIn {
 
 class MaintainPageStack {
   static bool keyCheck = false;
-  static int top = -1;
-  static var pages = [];
-
   static set keyCheckValue(keyCheck) => keyCheck;
 }
