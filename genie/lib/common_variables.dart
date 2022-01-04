@@ -481,3 +481,11 @@ const mobileCodes = [
 ];
 
 var airlineDetails = [];
+
+class MaintainPageStack {
+  static bool keyCheck = false;
+  static int top = -1;
+  static var pages = [];
+
+  static set keyCheckValue(keyCheck) => keyCheck;
+}
