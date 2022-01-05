@@ -194,11 +194,32 @@ class _LoginSection extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  // const SizedBox(
-                  //   width: 250,
-                  // ),
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
+                      var url = Uri.parse(
+                          'https://bialapp.azurewebsites.net/api/signIn?code=uazrh646HObxYjzo6AHSacaTSt7GzU99F2j4q02Cu/PWv2Eb97dxuw==');
+                      try {
+                        var response = await http.post(url,
+                            body: json.encode({
+                              'id': _providedUserName,
+                              'password': _providedPassword,
+                            }));
+                        var token = json.decode(response.body);
+                        const storage = FlutterSecureStorage();
+                        await storage.write(
+                            key: 'signInToken', value: token['token']);
+                        print(token['token']);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const HomeScreen()));
+                      } on Exception {
+                        print('failed');
+                        passwordController.text = 'failed';
+                        userNameController.text = 'failed';
+                        passwordController.text = 'Failed Sign-up';
+                        Future.delayed(const Duration(seconds: 5), () {});
+                      }
                       userNameController.clear();
                       passwordController.clear();
                     },
@@ -213,35 +234,9 @@ class _LoginSection extends StatelessWidget {
                   ),
                 ],
               ),
-              // sign-in with google or outlook
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  OutlinedButton(
-                    onPressed: () {},
-                    child: const Image(
-                      image: AssetImage(_googleLogo),
-                      width: 20,
-                      height: 20,
-                    ),
-                    style:
-                        OutlinedButton.styleFrom(backgroundColor: Colors.white),
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  OutlinedButton(
-                    onPressed: () {},
-                    child: const Image(
-                      image: AssetImage(_outlookLogo),
-                      width: 20,
-                      height: 20,
-                    ),
-                    style:
-                        OutlinedButton.styleFrom(backgroundColor: Colors.white),
-                  )
-                ],
-              ),
+              const SizedBox(
+                height: 10,
+              )
             ],
           ),
         ));
