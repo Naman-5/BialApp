@@ -7,21 +7,24 @@ import '../sign_up.dart';
 class FeedBackForm extends StatelessWidget {
   late var toggle = true;
 
-  FeedBackForm({Key? key}) : super(key: key) {
-    print("constructor");
-    CheckSignIn check = CheckSignIn();
-    check.check();
-    if (MaintainPageStack.keyCheck == false) {
-      print('Inside False');
-      toggle = false;
-    } else {
-      print('inside true');
-      toggle = true;
-    }
-  }
+  FeedBackForm({Key? key}) : super(key: key);
+  // toggle ? _FeedBack() : const SignUP()
   @override
   Widget build(BuildContext context) {
-    return toggle ? _FeedBack() : const SignUP();
+    return FutureBuilder(
+      builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+        if (snapshot.hasData) {
+          if (snapshot.data == false) {
+            return const SignUP();
+          } else {
+            return _FeedBack();
+          }
+        } else {
+          return const CircularProgressIndicator();
+        }
+      },
+      future: CheckSignIn.check(),
+    );
   }
 }
 

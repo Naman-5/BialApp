@@ -3,19 +3,13 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 const _key = "signInToken";
 
 class CheckSignIn {
-  final storage = const FlutterSecureStorage();
-  Future<void> check() async {
-    try {
-      print('true side');
-      MaintainPageStack.keyCheckValue = await storage.containsKey(key: _key);
-    } on TypeError {
-      print('false side');
-      MaintainPageStack.keyCheckValue = false;
+  static const storage = FlutterSecureStorage();
+  static Future<bool> check() async {
+    var storedKey = await storage.read(key: _key);
+    if (storedKey == null) {
+      return false;
+    } else {
+      return true;
     }
   }
-}
-
-class MaintainPageStack {
-  static bool keyCheck = false;
-  static set keyCheckValue(keyCheck) => keyCheck;
 }
