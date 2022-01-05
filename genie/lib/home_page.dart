@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:genie/contact_info.dart';
+import 'package:genie/feedback.dart';
 
 class HomePageIcons extends StatelessWidget {
   const HomePageIcons(
@@ -51,11 +52,19 @@ class HomePageIcons extends StatelessWidget {
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
 
-  final List<HomePageIcons> _homePageIcons = const [
-    HomePageIcons(
-        iconData: Icons.contact_page_outlined,
+  final List<HomePageIcons> _homePageIcons = [
+    const HomePageIcons(
+        iconData: Icons.contact_page_rounded,
         label: 'Airline Info',
         navigateTo: AirlineContact()),
+    HomePageIcons(
+        iconData: Icons.feedback_rounded,
+        label: "Feedback",
+        navigateTo: FeedBackForm()),
+    const HomePageIcons(
+        iconData: Icons.account_circle_rounded,
+        label: 'Profile',
+        navigateTo: Scaffold())
   ];
 
   Widget generateCards(index) {
@@ -100,7 +109,7 @@ class HomePage extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           color: Colors.grey[500]),
                     )),
-                Container(
+                SizedBox(
                   height: 100,
                   width: width,
                   child: ListView(
