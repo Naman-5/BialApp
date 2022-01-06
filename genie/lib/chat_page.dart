@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:genie/helper/chat_bot.dart';
 
 GlobalKey globalkey = GlobalKey();
 
@@ -25,7 +26,7 @@ class TextMessageBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
-      margin: const EdgeInsets.only(bottom: 5, right: 15, left: 8),
+      margin: const EdgeInsets.only(bottom: 10, right: 15, left: 8),
       constraints: const BoxConstraints(maxWidth: 270),
       child: Text(message),
       decoration: BoxDecoration(
@@ -82,6 +83,14 @@ class _ChatPageState extends State<ChatPage> {
         _messages.insert(0, {'message': message, 'isUsrMsg': true});
       });
       _focusNode.requestFocus();
+      AskBot.sendQuery(message).then((response) {
+        var res = (response['message'].runtimeType != String)
+            ? response['message']['status']
+            : response['message'];
+        setState(() {
+          _messages.insert(0, {'message': res, 'isUsrMsg': false});
+        });
+      });
     }
   }
 
