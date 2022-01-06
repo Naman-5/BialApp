@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:genie/contact_info.dart';
 import 'package:genie/feedback.dart';
+import 'package:genie/home_spcl_ass.dart';
 
 class HomePageIcons extends StatelessWidget {
   const HomePageIcons(
@@ -64,7 +65,11 @@ class HomePage extends StatelessWidget {
     const HomePageIcons(
         iconData: Icons.account_circle_rounded,
         label: 'Profile',
-        navigateTo: Scaffold())
+        navigateTo: Scaffold()),
+    HomePageIcons(
+        iconData: Icons.wheelchair_pickup_rounded,
+        label: 'Special Services',
+        navigateTo: SpecialAssist())
   ];
 
   Widget generateCards(index) {
