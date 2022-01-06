@@ -1,7 +1,11 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'helper/check_signin.dart';
+import 'home_screen.dart';
+import 'package:http/http.dart' as http;
 import '../sign_up.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 // ignore: must_be_immutable
 class FeedBackForm extends StatelessWidget {
@@ -181,7 +185,34 @@ class _FeedBack extends StatelessWidget {
               },
               controller: feedbackController,
             ),
-            TextButton(onPressed: () {}, child: const Text("Submit"))
+            TextButton(
+                onPressed: () async {
+                  var url = Uri.parse(
+                      'https://bialapp.azurewebsites.net/api/feedback?code=Veb2e7zPpaJzjO9d4vh3uE/3aTX7HDe6gUOIHvN5B5sN1ZXKFqU1IA==');
+                  try {
+                    const storage = FlutterSecureStorage();
+                    var response = await http.post(url,
+                        body: json.encode({
+                          'token': await storage.read(key: "signInToken"),
+                          'appExperience':
+                              FeedbackSupport.expeienceRating.toString(),
+                          'securityScreening': FeedbackSupport
+                              .securityScreeningRating
+                              .toString(),
+                          'processes': FeedbackSupport.processes.toString(),
+                          'cleanliness': FeedbackSupport.cleanliness.toString(),
+                          'comments': FeedbackSupport.feedback
+                        }));
+                    print("response -> ${json.decode(response.body)}");
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomeScreen()));
+                  } on Exception {
+                    print('failed');
+                  }
+                },
+                child: const Text("Submit"))
           ],
         ),
       )),
@@ -190,9 +221,9 @@ class _FeedBack extends StatelessWidget {
 }
 
 class FeedbackSupport {
-  static double expeienceRating = 0;
-  static double securityScreeningRating = 0;
-  static double processes = 0;
-  static double cleanliness = 0;
+  static double expeienceRating = 3;
+  static double securityScreeningRating = 3;
+  static double processes = 3;
+  static double cleanliness = 3;
   static String feedback = "";
 }
