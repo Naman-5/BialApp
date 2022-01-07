@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:genie/contact_info.dart';
+import 'package:genie/lost_found.dart';
 import 'package:genie/customs.dart';
 import 'package:genie/feedback.dart';
 import 'package:genie/home_spcl_ass.dart';
@@ -59,6 +60,10 @@ class HomePage extends StatelessWidget {
         iconData: Icons.contact_page_rounded,
         label: 'Airline Info',
         navigateTo: AirlineContact()),
+    HomePageIcons(
+        iconData: Icons.luggage_rounded,
+        label: 'Lost&Found',
+        navigateTo: LostFoundPage()),
     HomePageIcons(
         iconData: Icons.feedback_rounded,
         label: "Feedback",
