@@ -31,6 +31,11 @@ dependencies:
     sdk: flutter
   flutter_svg: ^1.0.0
   webview_flutter: ^3.0.0
+  http: ^0.13.4
+  flutter_rating_bar: ^4.0.0
+  flutter_secure_storage: ^5.0.2
+  hive: ^2.0.5
+  hive_flutter: ^1.1.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -64,6 +69,10 @@ flutter:
     - assets/images/chatbot.png
     - assets/images/JackandJones.png
     - assets/images/test.png
+    - assets/images/icon-route.png
+    - assets/images/wheelchairservice.jpeg
+    - assets/images/medicalAssistance.jpeg
+
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

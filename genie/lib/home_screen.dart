@@ -3,7 +3,8 @@ import 'package:genie/bottom_nav.dart';
 import 'package:genie/home_page.dart';
 import 'package:genie/flights_page.dart';
 import 'package:genie/chat_page.dart';
-import 'package:genie/retail/shopslistpage.dart';
+import 'package:genie/retail/shopspreview/homepage.dart';
+// import 'package:genie/retail/shopslistpage.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key, title}) : super(key: key);

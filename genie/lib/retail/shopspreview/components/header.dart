@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:genie/retail/cart.dart';
 
 
 
@@ -21,14 +22,16 @@ class _ShopHeaderState extends State<ShopHeader> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    width: 250,
+                    // width: 300,
+                    width: MediaQuery.of(context).size.width * 0.60,
+                    height: 55,
                     decoration: BoxDecoration(
                       color: Colors.grey[100],
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: TextField(
                       onChanged: (value) {
-                        
+                        // Search value
                       },
                       decoration: InputDecoration(
                         enabledBorder: InputBorder.none,
@@ -43,10 +46,12 @@ class _ShopHeaderState extends State<ShopHeader> {
                     width: 40,
                     height: 40,
                     decoration: BoxDecoration(
+                      // color: Colors.grey,
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: new IconButton(
-                        icon: new Icon(Icons.favorite_outline),
+                        icon: new Icon(Icons.shopping_bag_outlined),
+                        // highlightColor: Colors.blue,
                         onPressed: (){},
                       ),
                   ),
@@ -54,11 +59,15 @@ class _ShopHeaderState extends State<ShopHeader> {
                     width: 40,
                     height: 40,
                     decoration: BoxDecoration(
+                      // color: Colors.grey,
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: new IconButton(
                         icon: new Icon(Icons.shopping_cart),
-                        onPressed: (){},
+                        // highlightColor: Colors.blue,
+                        onPressed: (){
+                          Navigator.of(context).push(MaterialPageRoute(builder:(context)=> CartPage()));
+                        },
                       ),
                   )
                 ],
