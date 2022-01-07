@@ -43,7 +43,7 @@ class HomePageIcons extends StatelessWidget {
           ),
         ),
         SizedBox(
-          width: 76,
+          width: 80,
           child: Center(
             child: Text(
               label,

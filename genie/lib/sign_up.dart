@@ -208,7 +208,6 @@ class _LoginSection extends StatelessWidget {
                         const storage = FlutterSecureStorage();
                         await storage.write(
                             key: 'signInToken', value: token['token']);
-                        print(token['token']);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -463,7 +462,6 @@ class _SignUpForm extends StatelessWidget {
                       const storage = FlutterSecureStorage();
                       await storage.write(
                           key: 'signInToken', value: token['token']);
-                      print(token['token']);
                       Navigator.push(
                           context,
                           MaterialPageRoute(
