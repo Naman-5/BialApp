@@ -1,10 +1,13 @@
 // import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:genie/retail/billwid.dart';
+import 'package:genie/retail/myorders.dart';
 import 'package:genie/retail/productdetail.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 
 class CartPage extends StatefulWidget {
@@ -15,9 +18,6 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-
-  // int itemCount =1;
-  // bool value = false;
   
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,10 @@ class _CartPageState extends State<CartPage> {
     // var itemCost = itemCount*cartItems[index][2];
     int bagtotcost=0;
     int roundcost=0;
-    print(cartItems);
+    int redeem=1;
+    var rewards;
+    print(rewards);
+    // print(cartItems[0]);
     // print(boxx);
 
 
@@ -84,11 +87,7 @@ class _CartPageState extends State<CartPage> {
                                   fit: BoxFit.fill,
                                 )
                               ),
-                              // child: Image.asset('assets/images/test.png',
-                              // child: Image.network("${cartItems[index][3]}",
-                              // fit: BoxFit.cover,),
                             ),
-                            // Padding(padding: EdgeInsets.all(25),
                             SizedBox(width: 30,),
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical: 8),
@@ -205,46 +204,7 @@ class _CartPageState extends State<CartPage> {
                   ),
               ),
             ),
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(vertical: 20),
-            //   // child: Card(
-            //     child: Container(
-            //       width: MediaQuery.of(context).size.width,
-            //       height: 100,
-            //       child: Column(
-            //         children: [
-                      
-            //           Row(
-            //             crossAxisAlignment: CrossAxisAlignment.start,
-            //             // mainAxisAlignment: MainAxisAlignment.start,
-            //             children: [
-            //               Padding(
-            //                 padding: const EdgeInsets.fromLTRB(10, 10, 0, 10),
-            //                 child: Text("Total: "),
-            //               ),
-            //               Spacer(),
-            //               Text("One"),
-            //             ],
-            //           ),
-          
-                      
-          
-            //           Row(
-            //             crossAxisAlignment: CrossAxisAlignment.start,
-            //             // mainAxisAlignment: MainAxisAlignment.start,
-            //             children: [
-            //               Padding(
-            //                 padding: const EdgeInsets.fromLTRB(10, 10, 0, 10),
-            //                 child: Text("Total: "),
-            //               ),
-            //               Spacer(),
-            //               Text("One"),
-            //             ],
-            //           ),
-            //         ],
-            //       ),
-            //     ),
-            //   ),
+            
             SizedBox(height: 10,),
       
             Padding(
@@ -255,7 +215,6 @@ class _CartPageState extends State<CartPage> {
                   MaterialButton(
                     onPressed: (){
                       showModalBottomSheet(context: context, builder: (context) => ShowTotBill(totbagcost: bagtotcost,));
-                      // showModalBottomSheet(context: context, builder: (context) => showBill(bagtotcost));
                     },
                     color: Colors.cyan,
                     // minWidth: double.infinity,
@@ -272,7 +231,41 @@ class _CartPageState extends State<CartPage> {
       
       
                     MaterialButton(
-                    onPressed: (){},
+                    onPressed: () async {
+                      const storage = FlutterSecureStorage();
+                      var orderlist = [];
+                    for(var i=0; i<cartItems.length; i++){
+                      orderlist.add(
+                        {
+                          'store': cartItems[0][0].toString(),
+                          'item': cartItems[0][5].toString(),
+                        }
+                      );
+                    }
+                    var url = Uri.parse(
+                      'https://bialapp.azurewebsites.net/api/checkout?code=JijJ4KYjR6ZB5AvV7mvtaR7e0D4HLvJT1rSjyoBplhrHno8AKEPo5A%3D%3D');
+                  try {
+                    var response = await http.post(url,
+                        body: json.encode({
+                            'token': await storage.read(key: "signInToken"),
+                            'products': orderlist,
+                            'redeem': redeem.toString(),
+                        }));
+                    var mess = json.decode(response.body);
+                    // rewards = mess["message"]["rewards"];
+                    // print("response -> ${json.decode(response.body)}");
+                    setState(() {
+                      rewards = mess["message"]["rewards"];
+                    });
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MyOrders(myorders: cartItems, rewards: rewards,)));
+                  } on Exception {
+                    print('failed');
+                  }
+                      
+                    },
                     color: Colors.cyan,
                     // minWidth: double.infinity,
                     minWidth: 150,
@@ -295,82 +288,4 @@ class _CartPageState extends State<CartPage> {
       ),
     );
   }
-
-  
-  // Widget showBill(int totbagcost) =>
-  // Column showBill(int totbagcost) {
-  // @override
-  // Widget showBill(int totbagcost) {
-  //   print(totbagcost);
-  //   bool value = false;
-  //   // print(value);
-  
-  // return Column(
-  //   children: [
-  //     // Checkbox(value: true, onChanged: (value) => {}),
-
-  //     Row(
-  //       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //       children: [
-  //         Padding(
-  //           padding: const EdgeInsets.all(15.0),
-  //           child: Text("Redeem Reward Points"),
-  //         ),
-  //         Padding(
-  //           padding: const EdgeInsets.all(15.0),
-  //           child: Checkbox(value: value, onChanged: (value) {
-  //             setState(() {
-  //               value = value;
-  //               print(value);
-  //             });
-  //           }),
-  //         ),
-  //       ],
-  //     ),
-
-  //     Row(
-  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //       children: [
-  //         Padding(
-  //           padding: const EdgeInsets.all(15.0),
-  //           child: Text("Bag Total"),
-  //         ),
-  //         Padding(
-  //           padding: const EdgeInsets.all(15.0),
-  //           child: Text('\u{20B9} ${totbagcost}'),
-  //         ),
-  //       ],
-  //     ),
-
-  //     Row(
-  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //       children: [
-  //         Padding(
-  //           padding: const EdgeInsets.all(15.0),
-  //           child: Text("Rewards"),
-  //         ),
-  //         Padding(
-  //           padding: const EdgeInsets.all(15.0),
-  //           child: Text('\u{20B9} 100'),
-  //         ),
-  //       ],
-  //     ),
-
-
-  //     Row(
-  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //       children: [
-  //         Padding(
-  //           padding: const EdgeInsets.all(15.0),
-  //           child: Text("Total Amount"),
-  //         ),
-  //         Padding(
-  //           padding: const EdgeInsets.all(15.0),
-  //           child: Text('\u{20B9} 6900'),
-  //         ),
-  //       ],
-  //     )
-  //   ],
-  // );
-  // }
 }

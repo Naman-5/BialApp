@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 
 class MyOrders extends StatefulWidget {
-  const MyOrders({ Key? key }) : super(key: key);
+  final List myorders;
+  final rewards;
+  const MyOrders({ Key? key, required this.myorders, this.rewards }) : super(key: key);
 
   @override
   _MyOrdersState createState() => _MyOrdersState();
@@ -11,6 +13,10 @@ class MyOrders extends StatefulWidget {
 class _MyOrdersState extends State<MyOrders> {
   @override
   Widget build(BuildContext context) {
+
+    print(widget.rewards);
+    print(widget.myorders);
+
     return Column(
         children: <Widget>[
           AppBar(
