@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:genie/contact_info.dart';
+import 'package:genie/customs.dart';
 import 'package:genie/feedback.dart';
 import 'package:genie/home_spcl_ass.dart';
 
@@ -66,10 +67,14 @@ class HomePage extends StatelessWidget {
         iconData: Icons.account_circle_rounded,
         label: 'Profile',
         navigateTo: Scaffold()),
-    HomePageIcons(
+    const HomePageIcons(
         iconData: Icons.wheelchair_pickup_rounded,
         label: 'Special Services',
-        navigateTo: SpecialAssist())
+        navigateTo: SpecialAssist()),
+    HomePageIcons(
+        iconData: Icons.file_copy_rounded,
+        label: 'Customs Declaration',
+        navigateTo: CustomsForm())
   ];
 
   Widget generateCards(index) {
