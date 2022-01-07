@@ -336,7 +336,6 @@ class _LostFoundPageState extends State<LostFoundPage> {
     var response = await http.post(url, body: json.encode(body));
     if (response.body.isNotEmpty) {
       var resBody = json.decode(response.body);
-      print('Hello inner');
       return resBody;
     } else {
       return [];

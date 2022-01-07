@@ -4,6 +4,7 @@ import 'package:genie/lost_found.dart';
 import 'package:genie/customs.dart';
 import 'package:genie/feedback.dart';
 import 'package:genie/home_spcl_ass.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class HomePageIcons extends StatelessWidget {
   const HomePageIcons(
@@ -41,10 +42,15 @@ class HomePageIcons extends StatelessWidget {
             ),
           ),
         ),
-        Text(
-          label,
-          style: TextStyle(
-            color: Colors.grey[600],
+        SizedBox(
+          width: 76,
+          child: Center(
+            child: Text(
+              label,
+              style: TextStyle(
+                color: Colors.grey[600],
+              ),
+            ),
           ),
         )
       ],
@@ -60,7 +66,7 @@ class HomePage extends StatelessWidget {
         iconData: Icons.contact_page_rounded,
         label: 'Airline Info',
         navigateTo: AirlineContact()),
-    HomePageIcons(
+    const HomePageIcons(
         iconData: Icons.luggage_rounded,
         label: 'Lost&Found',
         navigateTo: LostFoundPage()),
@@ -82,12 +88,51 @@ class HomePage extends StatelessWidget {
         navigateTo: CustomsForm())
   ];
 
-  Widget generateCards(index) {
+  final List<Map<String, String>> cardInfo = [
+    {
+      'imageUrl':
+          'https://storageaccountbial8bd8.blob.core.windows.net/images/Highlights1.jpeg',
+      'pageUrl':
+          'https://www.bengaluruairport.com/travellers/at-the-airport/experience/retail-store/season-of-smiles-8-shopping-festival.html'
+    },
+    {
+      'imageUrl':
+          'https://storageaccountbial8bd8.blob.core.windows.net/images/Highlights2.jpeg',
+      'pageUrl':
+          'https://www.bengaluruairport.com/corporate/engage-with-us/tenders.html'
+    },
+    {
+      'imageUrl':
+          'https://storageaccountbial8bd8.blob.core.windows.net/images/Highlights3.jpeg',
+      'pageUrl':
+          'https://www.bengaluruairport.com/travellers/passenger-services/faqs-at-blr.html'
+    },
+    {
+      'imageUrl':
+          'https://storageaccountbial8bd8.blob.core.windows.net/images/Highlights4.jpg',
+      'pageUrl':
+          'https://www.bengaluruairport.com/travellers/passenger-services/covid-19_test.html'
+    }
+  ];
+
+  Widget generateCards(String imageUrl, String pageUrl, BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 15),
-      height: 100,
-      width: 200,
-      color: Colors.grey[200],
+      clipBehavior: Clip.hardEdge,
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
+      child: InkWell(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => HighlightsWebView(
+                          pageUrl: pageUrl,
+                        )));
+          },
+          child: Image.network(
+            imageUrl,
+            fit: BoxFit.fitHeight,
+          )),
     );
   }
 
@@ -128,7 +173,12 @@ class HomePage extends StatelessWidget {
                   height: 100,
                   width: width,
                   child: ListView(
-                    children: List.generate(4, (index) => generateCards(index)),
+                    children: List.generate(
+                        cardInfo.length,
+                        (index) => generateCards(
+                            cardInfo[index]['imageUrl'] ?? "",
+                            cardInfo[index]['pageUrl'] ?? "",
+                            context)),
                     scrollDirection: Axis.horizontal,
                   ),
                 ),
@@ -150,6 +200,25 @@ class HomePage extends StatelessWidget {
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class HighlightsWebView extends StatefulWidget {
+  const HighlightsWebView({Key? key, required this.pageUrl}) : super(key: key);
+  final String pageUrl;
+  @override
+  _HighlightsWebViewState createState() => _HighlightsWebViewState();
+}
+
+class _HighlightsWebViewState extends State<HighlightsWebView> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: WebView(
+        initialUrl: widget.pageUrl,
       ),
     );
   }
