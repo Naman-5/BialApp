@@ -35,12 +35,6 @@ class FeedBackForm extends StatelessWidget {
 class _FeedBack extends StatelessWidget {
   final feedbackController = TextEditingController();
 
-  // FeedBack() {
-  //   CheckSignIn c = CheckSignIn();
-  //   selector = c.check();
-  //   print(selector);
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
