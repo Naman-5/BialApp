@@ -1,13 +1,37 @@
 import 'package:flutter/material.dart';
+import 'helper/check_signin.dart';
+import 'sign_up.dart';
 
-class WheelChairAssistance extends StatefulWidget {
+class WheelChairAssistance extends StatelessWidget {
   const WheelChairAssistance({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+        if (snapshot.hasData) {
+          if (snapshot.data == false) {
+            return const SignUP();
+          } else {
+            return const WheelChairAssistanceButton();
+          }
+        } else {
+          return const CircularProgressIndicator();
+        }
+      },
+      future: CheckSignIn.check(),
+    );
+  }
+}
+
+class WheelChairAssistanceButton extends StatefulWidget {
+  const WheelChairAssistanceButton({Key? key}) : super(key: key);
 
   @override
   _WheelChairAssistanceState createState() => _WheelChairAssistanceState();
 }
 
-class _WheelChairAssistanceState extends State<WheelChairAssistance> {
+class _WheelChairAssistanceState extends State<WheelChairAssistanceButton> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
