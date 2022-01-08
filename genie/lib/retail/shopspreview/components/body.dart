@@ -28,7 +28,8 @@ class _ShopsGridViewState extends State<ShopsGridView> {
     // Map<String, dynamic> encshopss = ShopDetails.shops;
     // print(widget.shopps[0]);
 
-    return Column(
+    return 
+    Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         InkWell(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:genie/retail/shopspreview/components/header.dart';
+// import 'package:genie/retail/shopspreview/components/header.dart';
 import 'package:genie/retail/shopitems/body.dart';
-
+import 'package:genie/retail/shopitems/header.dart';
 
 class ShopItems extends StatefulWidget {
   final List shops;

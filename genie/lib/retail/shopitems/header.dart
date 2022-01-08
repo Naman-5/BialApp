@@ -21,13 +21,13 @@ class _ShopHeaderState extends State<ShopHeader> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Container(
-                  //   child: IconButton(
-                  //   icon: Icon(Icons.arrow_back),
-                  //   onPressed: (){
-                  //     Navigator.pop(context);
-                  //   },)
-                  // ),
+                  Container(
+                    child: IconButton(
+                    icon: Icon(Icons.arrow_back),
+                    onPressed: (){
+                      Navigator.pop(context);
+                    },)
+                  ),
                   Container(
                     // width: 300,
                     width: MediaQuery.of(context).size.width * 0.60,

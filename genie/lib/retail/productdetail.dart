@@ -20,7 +20,7 @@ class ProductDetailss extends StatefulWidget {
 class _ProductDetailssState extends State<ProductDetailss> {
 
   int selectedImage = 0;
-  var selectedSizeind = null;
+  var selectedSizeind = 0;
   String selectedSize="";
 
   // @override
@@ -52,6 +52,15 @@ class _ProductDetailssState extends State<ProductDetailss> {
     // print(widget.itemdet);
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.indigo[300],
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: (){
+            Navigator.pop(context);
+          },
+        ),
+      ),
       body: Container(
           child: ListView(
             scrollDirection: Axis.vertical,
@@ -148,6 +157,7 @@ class _ProductDetailssState extends State<ProductDetailss> {
                     padding: const EdgeInsets.all(10.0),
                     child: MaterialButton(
                     onPressed: (){
+                    
                       for(var i=0; i<cartItems.length; i++){
                         if(widget.itemdet[0]["name"]==cartItems[i][1] && selectedSize==cartItems[i][7]){
                           flag=0;
@@ -158,6 +168,7 @@ class _ProductDetailssState extends State<ProductDetailss> {
                       }else{
                         print('Item is already in cart');
                       }
+                    
                     },
                     color: Colors.cyan,
                     // minWidth: double.infinity,
