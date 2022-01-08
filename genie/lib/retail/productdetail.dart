@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:genie/helper/check_signin.dart';
 import 'package:genie/helper/shops.dart';
@@ -22,7 +20,7 @@ class ProductDetailss extends StatefulWidget {
 class _ProductDetailssState extends State<ProductDetailss> {
 
   int selectedImage = 0;
-  var selectedSizeind = 0;
+  var selectedSizeind = null;
   String selectedSize="";
 
   // @override
@@ -38,20 +36,6 @@ class _ProductDetailssState extends State<ProductDetailss> {
     int flag=1;
     Box boxx = Hive.box('cartBox');
     List cartItems = boxx.get('items');
-    // print(cartItems);
-    // print(widget.itemdet);
-    // print(widget.ind);
-    // print(widget.shopname);
-    // List justrying = json.decode(widget.itemdet[0]["size"]);
-    // List just = List<String>.from(widget.itemdet[0]["size"]);
-    // print(just); // List<dynamic>
-    // List tryi = widget.itemdet[0]["size"].map((s) => s as String).toList();
-    // print(tryi);
-    // var map1 = Map.fromIterable(widget.itemdet[0]["size"] as List);
-    // print(map1.keys.toList());
-    // var shopss = ShopDetails.shops;
-    // print(shopss);
-    // print(widget.itemdet);
 
     return Scaffold(
       appBar: AppBar(
@@ -68,17 +52,6 @@ class _ProductDetailssState extends State<ProductDetailss> {
             scrollDirection: Axis.vertical,
             children: [
               Container(
-                // child: PageView(
-                //   children: [
-                //     for(var i=0; i<3; i++)
-                //     Container(
-                //       color: Colors.grey[300],
-                //       height: 300,
-                //       child: Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgVLOZ-0hQQmseGztTZ6Y9jceTvW2pPCPC2w&usqp=CAU',
-                //       fit: BoxFit.cover,),
-                //     )
-                //   ],
-                // ),
                 color: Colors.grey[300],
                 height: 450,
                 // child: Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgVLOZ-0hQQmseGztTZ6Y9jceTvW2pPCPC2w&usqp=CAU',
@@ -159,6 +132,7 @@ class _ProductDetailssState extends State<ProductDetailss> {
                     child: MaterialButton(
                     onPressed: () async {
                       var signedin = await CheckSignIn.check();
+                   if(selectedSizeind!=null){ 
                     if(signedin==true){
                       for(var i=0; i<cartItems.length; i++){
                         if(widget.itemdet[0]["name"]==cartItems[i][1] && selectedSize==cartItems[i][7]){
@@ -176,10 +150,13 @@ class _ProductDetailssState extends State<ProductDetailss> {
                     else{
                       Navigator.of(context).push(MaterialPageRoute(builder:(context)=> SignUP()));
                     }
+                   }else{
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Please select a size to proceed'),));
+                   }
                     },
                     color: Colors.indigo[300],
                     // minWidth: ,
-                    minWidth: MediaQuery.of(context).size.width*0.85,
+                    minWidth: MediaQuery.of(context).size.width*0.88,
                     height: 50,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                     child: Text("Add to cart",

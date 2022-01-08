@@ -49,19 +49,7 @@ class _ShopHeaderState extends State<ShopHeader> {
                       ),
                     ),
                   ),
-                  // Container(
-                  //   width: 40,
-                  //   height: 40,
-                  //   decoration: BoxDecoration(
-                  //     // color: Colors.grey,
-                  //     borderRadius: BorderRadius.circular(15),
-                  //   ),
-                  //   child: new IconButton(
-                  //       icon: new Icon(Icons.shopping_bag_outlined),
-                  //       // highlightColor: Colors.blue,
-                  //       onPressed: (){},
-                  //     ),
-                  // ),
+
                   Container(
                     width: 40,
                     height: 40,

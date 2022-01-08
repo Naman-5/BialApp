@@ -41,7 +41,7 @@ class _ShopItemsState extends State<ShopItems> {
                       crossAxisCount: 2,
                       mainAxisSpacing: 20,
                       crossAxisSpacing: 20,
-                      childAspectRatio: 0.75,
+                      childAspectRatio: 0.65,
                     ), 
                     // shopps: shopss[index],
                     itemBuilder: (context, index) => ItemsBody(shopps: [widget.shops[0]["itemDetails"]['${index+1}']], ind: index+1, shopname: widget.shops[0]["id"])),

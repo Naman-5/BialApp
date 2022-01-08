@@ -56,7 +56,10 @@ class _ShopsGridViewState extends State<ShopsGridView> {
           Padding(
           padding: EdgeInsets.fromLTRB(30, 10, 0, 0),
           // child: Text(sh["id"]),
-          child: Text(widget.shopps[0]["id"]),
+          child: Text(widget.shopps[0]["id"], 
+          style: const TextStyle(
+            fontWeight: FontWeight.w600,
+          ),),
         )
         // Text("Jack and Jones"),
       ],

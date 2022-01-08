@@ -30,6 +30,7 @@ return Scaffold(
                       Navigator.pop(context);
                     },
                     child: Icon(Icons.close,)),
+                    title: Text("Orders"),
                   // leading: BackButton(color: Colors.white,)
                 ),
       body: Column(
@@ -52,7 +53,8 @@ return Scaffold(
                           children: [
                             Container(
                               width: 175,
-                              height: 150,
+                              // height: 150,
+                              height: 180,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(5),
                                 image: DecorationImage(
@@ -76,7 +78,8 @@ return Scaffold(
                                         // child: Text(orderItems[index]["itemname"], maxLines: 2,),
                                         // child: Text("Jack and Jones", maxLines: 2,),
                                         child: SizedBox(
-                                          width: 80,
+                                          // width: 80,
+                                          width: 120,
                                           child: Text(orderItems[index]["itemname"], maxLines: 3, 
                                           style: TextStyle(fontSize: 14),),
                                         ),
