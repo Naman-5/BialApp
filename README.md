@@ -1,14 +1,16 @@
 # BIAL Hackathon
-![Hackathon Banner](Documentatioin/hackathon_banner.png)
+![Hackathon Banner](Documentation/hackathon_banner.png)
 
-# Project Title -> BIAL-Concierge
+# Project Title: BIAL-Concierge
 
-## Team Members :-
-- Naman Mayer
-- Nischith B
-- Pulavarthy Harshik
+> Team: #3stack
+>
+> Team Members:
+> - Naman Mayer
+> - Nischith B
+> - Pulavarthy Harshik
 
-## User-Interface
+# User-Interface
 Home Screen             | Flights
 :-------------------------:|:-------------------------:
-![Home Page](Documentatioin/HomeScreen.png)  |  ![Flights Page](Documentatioin/flightsPage.png)
+![Home Page](Documentation/HomeScreen.png)  |  ![Flights Page](Documentation/flightsPage.png)
