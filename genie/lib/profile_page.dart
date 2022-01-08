@@ -109,7 +109,12 @@ class UserProfile extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           minRadius: 40,
-                          backgroundColor: Colors.grey[300],
+                          backgroundColor: Colors.transparent,
+                          child: Icon(
+                            Icons.account_circle_rounded,
+                            size: 80,
+                            color: Colors.indigo[300],
+                          ),
                         ),
                         const SizedBox(
                           height: 20,
