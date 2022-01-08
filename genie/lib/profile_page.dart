@@ -79,9 +79,19 @@ class UserProfile extends StatelessWidget {
     const secureStorage = FlutterSecureStorage();
     var url = Uri.parse(
         'https://bialapp.azurewebsites.net/api/userdetails?code=hlyj93xPxofSwwz3J54lTCR0lK8A%2FXKl3kUgFwc9pHyMQwsAxxKLDg%3D%3D');
-    var body = {'token': await secureStorage.read(key: 'signInToken')};
-    var response = await http.post(url, body: json.encode(body));
-    return json.decode(response.body);
+    try {
+      var body = {'token': await secureStorage.read(key: 'signInToken')};
+      var response = await http.post(url, body: json.encode(body));
+      var valueToReturn = json.decode(response.body);
+      valueToReturn['message']['rewards'] =
+          (valueToReturn['message']['rewards']).toString();
+      return valueToReturn;
+    } on Exception {
+      Map<String, Map<String, String>> x = {
+        'message': {'role': 'user', 'name': '', 'id': '', 'rewards': '0'}
+      };
+      return x;
+    }
   }
 
   Widget getprofileUI(BuildContext context, Map data) {
@@ -154,7 +164,9 @@ class UserProfile extends StatelessWidget {
         const SizedBox(
           height: 40,
         ),
-        const BialRewards(),
+        BialRewards(
+          points: data['message']['rewards'],
+        ),
         const Options(
             label: 'My Orders',
             iconData: Icons.shopping_bag_rounded,

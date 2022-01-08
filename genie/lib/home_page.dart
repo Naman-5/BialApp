@@ -38,7 +38,7 @@ class HomePageIcons extends StatelessWidget {
             ),
             child: Icon(
               iconData,
-              color: Colors.grey,
+              color: Colors.indigo[300],
               size: 35,
             ),
           ),
