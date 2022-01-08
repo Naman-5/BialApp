@@ -22,9 +22,7 @@ class _ItemsBodyState extends State<ItemsBody> {
     // print(widget.shopps[0][0]["itemDetails"]["1"]);
     // print(widget.ind);
 
-    return Container(
-      height: 250,
-      child: Column(
+    return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           InkWell(
@@ -53,16 +51,24 @@ class _ItemsBodyState extends State<ItemsBody> {
             // padding: EdgeInsets.fromLTRB(30, 10, 0, 0),
             // child: Expanded(child: Text(widget.shopps[0]["name"])),
             // ),
-            Expanded(
-              child: Center(
-              child: Text(widget.shopps[0]["name"],
-              maxLines: 2,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(widget.shopps[0]["name"],
+                    maxLines: 2,
+                    style: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                    ),
+                    ),
+                  ),
+                ],
               ),
-            ),)
+            ),
             // Text(widget.shopps[0]["name"]),
           // Text("Jack and Jones"),
         ],
-      ),
     );
   }
 }
