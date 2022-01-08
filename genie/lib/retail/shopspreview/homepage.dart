@@ -33,6 +33,14 @@ class _RetailHomePageState extends State<RetailHomePage> {
             children: [
               ShopHeader(),
               // SizedBox(height: 20),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 20),
+                child: Text("Stores", style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),),
+              ),
+              SizedBox(height: 10,),
               Expanded(
                 child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),

@@ -164,7 +164,7 @@ class _ShowTotBillState extends State<ShowTotBill> {
 
         },
         // child: Text("Place Order"),
-         color: Colors.cyan,
+         color: Colors.indigo[300],
                     // minWidth: double.infinity,
                     minWidth: 150,
                     height: 50,

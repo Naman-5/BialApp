@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:genie/splashscreen.dart';
 import 'home_screen.dart';
 import 'helper/get_airline_contacts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:genie/helper/shops.dart';
 
 void main() async {
+  runApp(const SplashScreen());
   await ShopDetails.getShops();
   await Hive.initFlutter();
   // Hive.deleteBoxFromDisk('myOrders');

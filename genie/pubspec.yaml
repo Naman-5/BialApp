@@ -72,6 +72,7 @@ flutter:
     - assets/images/icon-route.png
     - assets/images/wheelchairservice.jpeg
     - assets/images/medicalAssistance.jpeg
+    - assets/images/flightloading.gif
 
 
   # The following line ensures that the Material Icons font is
