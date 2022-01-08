@@ -3,7 +3,8 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class BialRewards extends StatefulWidget {
-  const BialRewards({Key? key}) : super(key: key);
+  String points;
+  BialRewards({Key? key, required this.points}) : super(key: key);
 
   @override
   _BialRewardsState createState() => _BialRewardsState();
@@ -46,7 +47,7 @@ class _BialRewardsState extends State<BialRewards> {
                   "assets/images/rewards.gif",
                   fit: BoxFit.fill,
                 ),
-                Center(child: Text("${rews} BIAL Points")),
+                Center(child: Text("${widget.points} BIAL Points")),
                 Center(
                   child: Padding(
                       padding: EdgeInsets.all(10.0),
