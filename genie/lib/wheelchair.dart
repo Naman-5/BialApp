@@ -40,6 +40,7 @@ class _WheelChairAssistanceState extends State<WheelChairAssistanceButton> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.indigo[300],
         actions: [],
       ),
       body: Container(
@@ -113,6 +114,7 @@ class _WheelChairAssistanceState extends State<WheelChairAssistanceButton> {
                 ),
               ),
               InkWell(
+                  highlightColor: Colors.indigo,
                   onTap: () async {
                     // add wheel chair API
                     var url = Uri.parse(
@@ -183,10 +185,13 @@ class _WheelChairAssistanceState extends State<WheelChairAssistanceButton> {
                       height: 45,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
-                        color: Colors.blueAccent,
+                        color: Colors.indigo,
                       ),
                       child: const Center(
-                        child: Text("Book Wheel Chair"),
+                        child: Text(
+                          "Book Wheel Chair",
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
                     ),
                   )),
