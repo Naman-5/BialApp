@@ -1,7 +1,9 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:genie/helper/check_signin.dart';
 import 'package:genie/helper/shops.dart';
+import 'package:genie/sign_up.dart';
 import 'dart:convert';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -110,17 +112,27 @@ class _ProductDetailssState extends State<ProductDetailss> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 // child: Text("Jack And Jones T-Shirt"),
-                child: Text(widget.itemdet[0]["name"]),
+                child: Text(widget.itemdet[0]["name"], 
+                style: TextStyle(
+                  fontWeight: FontWeight.w300,
+                  fontSize: 20,
+                ),),
               ),
               
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                child: Text("Rs. ${widget.itemdet[0]["price"]}"),
+                child: Text("Rs. ${widget.itemdet[0]["price"]}", style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 15,
+                ),),
               ),
 
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                child: Text("Select Size"),
+                child: Text("Select Size", style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 15,
+                ),),
               ),
 
             
@@ -140,24 +152,14 @@ class _ProductDetailssState extends State<ProductDetailss> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
 
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: MaterialButton(
-                    onPressed: (){},
-                    color: Colors.lime,
-                    // minWidth: double.infinity,
-                    minWidth: 50,
-                    height: 50,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                    child: Icon(Icons.shopping_cart)
-                    ),
-                  ),
+                 
     
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: MaterialButton(
-                    onPressed: (){
-                    
+                    onPressed: () async {
+                      var signedin = await CheckSignIn.check();
+                    if(signedin==true){
                       for(var i=0; i<cartItems.length; i++){
                         if(widget.itemdet[0]["name"]==cartItems[i][1] && selectedSize==cartItems[i][7]){
                           flag=0;
@@ -168,11 +170,14 @@ class _ProductDetailssState extends State<ProductDetailss> {
                       }else{
                         print('Item is already in cart');
                       }
-                    
+                    }
+                    else{
+                      Navigator.of(context).push(MaterialPageRoute(builder:(context)=> SignUP()));
+                    }
                     },
-                    color: Colors.cyan,
-                    // minWidth: double.infinity,
-                    minWidth: 265,
+                    color: Colors.indigo[300],
+                    // minWidth: ,
+                    minWidth: MediaQuery.of(context).size.width*0.85,
                     height: 50,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                     child: Text("Add to cart",
