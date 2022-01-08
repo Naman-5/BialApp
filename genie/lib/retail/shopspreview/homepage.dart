@@ -27,30 +27,32 @@ class _RetailHomePageState extends State<RetailHomePage> {
     // print(ListLength);
     // print(shopss[0]['location']);
 
-    return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ShopHeader(),
-            // SizedBox(height: 20),
-            Expanded(
-              child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: MediaQuery.removePadding(
-                context: context,
-                removeTop: true,
-                child: GridView.builder(
-                  itemCount: ListLength,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 20,
-                    crossAxisSpacing: 20,
-                    childAspectRatio: 0.75,
-                  ), 
-                  // shopps: shopss[index],
-                  itemBuilder: (context, index) => ShopsGridView(shopps: [shopss[index]],)),
-              ),
-            ),),
-              ],
-      );
+    return Scaffold(
+      body: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ShopHeader(),
+              // SizedBox(height: 20),
+              Expanded(
+                child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: MediaQuery.removePadding(
+                  context: context,
+                  removeTop: true,
+                  child: GridView.builder(
+                    itemCount: ListLength,
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 20,
+                      crossAxisSpacing: 20,
+                      childAspectRatio: 0.75,
+                    ), 
+                    // shopps: shopss[index],
+                    itemBuilder: (context, index) => ShopsGridView(shopps: [shopss[index]],)),
+                ),
+              ),),
+                ],
+        ),
+    );
   }
 }

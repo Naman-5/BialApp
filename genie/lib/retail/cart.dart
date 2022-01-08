@@ -19,6 +19,13 @@ class CartPage extends StatefulWidget {
 
 class _CartPageState extends State<CartPage> {
   
+  // var rewards;
+  // List cartItems=[];
+  // Box boxx = Hive.box('cartBox');
+  //   CartPage(){
+  //     cartItems = boxx.get('items');
+  //   }
+
   @override
   Widget build(BuildContext context) {
 
@@ -26,27 +33,28 @@ class _CartPageState extends State<CartPage> {
     Box boxx = Hive.box('cartBox');
     // if(boxx.get("items"))  List cartItems = boxx.get('items'), lengthh = cartItems.length;
     List cartItems = boxx.get('items');
+    // if (cartItems?.isEmpty ?? true) lengthh = 0;
     if (cartItems.isEmpty) lengthh = 0;
     else lengthh = cartItems.length;
     
     // var itemCost = itemCount*cartItems[index][2];
     int bagtotcost=0;
     int roundcost=0;
-    int redeem=1;
-    var rewards;
-    print(rewards);
+    // int redeem=0;
+
+    // print(rewards);
     // print(cartItems[0]);
     // print(boxx);
 
 
     return Scaffold(
       appBar: AppBar(
-                  backgroundColor: Colors.black,
+                  backgroundColor: Colors.indigo[300],
                   leading: GestureDetector(
                     onTap: (){
                       Navigator.pop(context);
                     },
-                    child: Icon(Icons.close,)),
+                    child: Icon(Icons.close,),),
                   // leading: BackButton(color: Colors.white,)
                 ),
       body: Column(
@@ -99,10 +107,21 @@ class _CartPageState extends State<CartPage> {
                                     SizedBox(height: 10,),
                                     // ignore: avoid_unnecessary_containers
                                     
-                                      Container(
+                                      // Container(
+                                      //   // width: 60,
+                                      //   // child: Text(cartItems[index][1], maxLines: 2,),
+                                      //   child: Text("Jack and Jones", maxLines: 2,),
+                                      // ),
+
+                                    Container(
                                         // width: 60,
-                                        // child: Text(cartItems[index][1], maxLines: 2,),
-                                        child: Text("Jack and Jones", maxLines: 2,),
+                                        // child: Text(orderItems[index]["itemname"], maxLines: 2,),
+                                        // child: Text("Jack and Jones", maxLines: 2,),
+                                        child: SizedBox(
+                                          width: 80,
+                                          child: Text(cartItems[index][1], maxLines: 3, 
+                                          style: TextStyle(fontSize: 14),),
+                                        ),
                                       ),
                                     
                                     SizedBox(height: 10,),
@@ -214,14 +233,36 @@ class _CartPageState extends State<CartPage> {
                 children: [
                   MaterialButton(
                     onPressed: (){
-                      showModalBottomSheet(context: context, builder: (context) => ShowTotBill(totbagcost: bagtotcost,));
+                      var orderlist = [];
+                      var myorderslist = [];
+                    for(var i=0; i<cartItems.length; i++){
+                      orderlist.add(
+                        {
+                          'store': cartItems[i][0].toString(),
+                          'item': cartItems[i][5].toString(),
+                        }
+                      );
+                      myorderslist.add(
+                        {
+                          'store': cartItems[i][0].toString(),
+                          'itemname': cartItems[i][1].toString(),
+                          'price': cartItems[i][2],
+                          'image': cartItems[i][3],
+                          'size': cartItems[i][7],
+                        }
+                      );
+                    }
+                    
+                    print(myorderslist);
+                      showModalBottomSheet(context: context, builder: (context) => ShowTotBill(totbagcost: bagtotcost, orderlist: orderlist, myorderslist: myorderslist,));
                     },
-                    color: Colors.cyan,
+                    color: Colors.indigo[300],
                     // minWidth: double.infinity,
+                    // minWidth: MediaQuery.of(context).size.width,
                     minWidth: 150,
                     height: 50,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                    child: Text("Bill Details",
+                    child: Text("Proceed to Checkout",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 15,
@@ -231,47 +272,74 @@ class _CartPageState extends State<CartPage> {
       
       
                     MaterialButton(
-                    onPressed: () async {
-                      const storage = FlutterSecureStorage();
-                      var orderlist = [];
-                    for(var i=0; i<cartItems.length; i++){
-                      orderlist.add(
-                        {
-                          'store': cartItems[0][0].toString(),
-                          'item': cartItems[0][5].toString(),
-                        }
-                      );
-                    }
-                    var url = Uri.parse(
-                      'https://bialapp.azurewebsites.net/api/checkout?code=JijJ4KYjR6ZB5AvV7mvtaR7e0D4HLvJT1rSjyoBplhrHno8AKEPo5A%3D%3D');
-                  try {
-                    var response = await http.post(url,
-                        body: json.encode({
-                            'token': await storage.read(key: "signInToken"),
-                            'products': orderlist,
-                            'redeem': redeem.toString(),
-                        }));
-                    var mess = json.decode(response.body);
-                    // rewards = mess["message"]["rewards"];
-                    // print("response -> ${json.decode(response.body)}");
-                    setState(() {
-                      rewards = mess["message"]["rewards"];
-                    });
-                    Navigator.push(
+                    onPressed: () {
+                        Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => MyOrders(myorders: cartItems, rewards: rewards,)));
-                  } on Exception {
-                    print('failed');
-                  }
+                            builder: (context) => MyOrders()));
+                  //     const storage = FlutterSecureStorage();
+                  //     var orderlist = [];
+                  //     var myorderslist = [];
+                  //   for(var i=0; i<cartItems.length; i++){
+                  //     orderlist.add(
+                  //       {
+                  //         'store': cartItems[i][0].toString(),
+                  //         'item': cartItems[i][5].toString(),
+                  //       }
+                  //     );
+                  //     myorderslist.add(
+                  //       {
+                  //         'store': cartItems[i][0].toString(),
+                  //         'itemname': cartItems[i][1].toString(),
+                  //         'price': cartItems[i][2],
+                  //         'image': cartItems[i][3],
+                  //         'size': cartItems[i][7],
+                  //       }
+                  //     );
+                  //   }
+                  //   var url = Uri.parse(
+                  //     'https://bialapp.azurewebsites.net/api/checkout?code=JijJ4KYjR6ZB5AvV7mvtaR7e0D4HLvJT1rSjyoBplhrHno8AKEPo5A%3D%3D');
+                  // try {
+                  //   var response = await http.post(url,
+                  //       body: json.encode({
+                  //           'token': await storage.read(key: "signInToken"),
+                  //           'products': orderlist,
+                  //           'redeem': redeem.toString(),
+                  //       }));
+                  //   var mess = json.decode(response.body);
+                  //   // rewards = mess["message"]["rewards"];
+                  //   print("response -> ${json.decode(response.body)}");
+                  //   var rewards = mess["message"]["rewards"];
+                  //   print(rewards);
+                  //   Box rewbox = Hive.box('rewards');
+                  //   rewbox.put("currRew", rewards);
+                  //   // setState(() {
+                  //   //   rewards = mess["message"]["rewards"];
+                  //   // });
+
+                  //   Box boxx = Hive.box('myOrders');
+                  //   List orderitems = boxx.get('items');
+                  //   orderitems.add(myorderslist);
+                  //   boxx.put('items', orderitems);
+
+                  //   setState(() {
+                  //     boxx.put('items', []);
+                  //   });
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => MyOrders(myorders: myorderslist,)));
+                  // } on Exception {
+                  //   print('failed');
+                  // }
                       
                     },
-                    color: Colors.cyan,
+                    color: Colors.indigo[300],
                     // minWidth: double.infinity,
                     minWidth: 150,
                     height: 50,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                    child: Text("Proceed to Checkout",
+                    child: Text("My Orders",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 15,

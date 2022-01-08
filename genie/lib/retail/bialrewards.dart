@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class BialRewards extends StatefulWidget {
   const BialRewards({ Key? key }) : super(key: key);
@@ -11,6 +12,11 @@ class BialRewards extends StatefulWidget {
 class _BialRewardsState extends State<BialRewards> {
   @override
   Widget build(BuildContext context) {
+
+    Box rewbox = Hive.box('rewards');
+    var rews = rewbox.get('currRew');
+    // print(rews);
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -23,7 +29,7 @@ class _BialRewardsState extends State<BialRewards> {
               actions: [
                   Image.asset("assets/images/rewards.gif",
                     fit: BoxFit.fill,),
-                  Center(child: Text("250 BIAL Points")),
+                  Center(child: Text("${rews} BIAL Points")),
                   Center(child: Padding(padding: EdgeInsets.all(10.0),child: Text("Reedem BIAL Rewards points at the time of purchase.")),
                   ),],
               ),
