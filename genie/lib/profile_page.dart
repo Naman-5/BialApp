@@ -4,6 +4,7 @@ import 'package:genie/helper/check_signin.dart';
 import 'package:genie/retail/bialrewards.dart';
 import 'package:genie/retail/myorders.dart';
 import 'package:genie/sign_up.dart';
+import 'home_screen.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -44,7 +45,16 @@ class UserProfile extends StatelessWidget {
           icon: const Icon(Icons.arrow_back_ios_new_rounded),
         ),
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.logout_outlined))
+          IconButton(
+              onPressed: () async {
+                const storage = FlutterSecureStorage();
+                await storage.delete(key: 'signInToken');
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const HomeScreen()));
+              },
+              icon: const Icon(Icons.logout_outlined))
         ],
       ),
       body: FutureBuilder(
@@ -126,6 +136,7 @@ class UserProfile extends StatelessWidget {
                               fontSize: 40,
                               fontWeight: FontWeight.w500,
                               letterSpacing: 1.1),
+                          textAlign: TextAlign.center,
                         ),
                         Text(
                           data['message']['id'],

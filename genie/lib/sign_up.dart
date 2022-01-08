@@ -8,8 +8,6 @@ import 'home_screen.dart';
 import 'package:http/http.dart' as http;
 
 const _airportLogoPath = "ImageAssets/airport_logo.svg";
-const _googleLogo = 'ImageAssets/googleLogo.png';
-const _outlookLogo = 'ImageAssets/outlookLogo.jpeg';
 
 class SignUP extends StatelessWidget {
   const SignUP({Key? key}) : super(key: key);
@@ -18,6 +16,7 @@ class SignUP extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.indigo[300],
         title: const Text("User Authentication Required"),
       ),
       body: _SignUpUI(),
@@ -89,11 +88,17 @@ class _SignUpTabState extends State<_SignUpTab> with TickerProviderStateMixin {
             mainAxisSize: MainAxisSize.min,
             children: [
               ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(Colors.indigo[300])),
                   onPressed: () {
                     switchSection(loginIdentifier);
                   },
                   child: const Text("Login")),
               ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(Colors.indigo[300])),
                   onPressed: () {
                     switchSection(signUPIdentifier);
                   },
@@ -123,7 +128,7 @@ class _LoginSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
         elevation: 5,
-        color: Colors.blue,
+        color: Colors.indigo[300],
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
           child: Column(
@@ -259,7 +264,7 @@ class _SignUpForm extends StatelessWidget {
     return Card(
       elevation: 5,
       clipBehavior: Clip.hardEdge,
-      color: Colors.blue,
+      color: Colors.indigo[300],
       child: Padding(
         padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
         child: Column(

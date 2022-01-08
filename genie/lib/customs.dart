@@ -515,6 +515,7 @@ class _FormView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.indigo[300],
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
