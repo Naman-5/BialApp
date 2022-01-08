@@ -4,6 +4,7 @@ import 'package:genie/lost_found.dart';
 import 'package:genie/customs.dart';
 import 'package:genie/feedback.dart';
 import 'package:genie/home_spcl_ass.dart';
+import 'package:genie/profile_page.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class HomePageIcons extends StatelessWidget {
@@ -77,7 +78,7 @@ class HomePage extends StatelessWidget {
     const HomePageIcons(
         iconData: Icons.account_circle_rounded,
         label: 'Profile',
-        navigateTo: Scaffold()),
+        navigateTo: ProfilePage()),
     const HomePageIcons(
         iconData: Icons.wheelchair_pickup_rounded,
         label: 'Special Services',

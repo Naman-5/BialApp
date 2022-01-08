@@ -73,7 +73,7 @@ flutter:
     - assets/images/wheelchairservice.jpeg
     - assets/images/medicalAssistance.jpeg
     - assets/images/flightloading.gif
-
+    - assets/images/rewards.gif
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
