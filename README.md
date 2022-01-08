@@ -9,6 +9,33 @@
 > - Naman Mayer
 > - Nischith B
 > - Pulavarthy Harshik
+>
+
+# Tech-Stack
+
+<p align="center">
+<img src="Documentation/azure.png" width="125"> 
+<img src="Documentation/cosmosDB.png" width="250"> 
+<img src="Documentation/azureFunction.png" width="125">
+</p>
+
+> Azure Services Used:
+>
+> 1. Azure CosmosDB
+> 1. Azure Functions
+> 1. Azure Storage Account
+>
+
+<p align="center">
+<img src="Documentation/flutter.png" width="200">
+<img src="Documentation/dart.png" width="200"> 
+<img src="Documentation/python.png" width="200">
+</p>
+
+> Frameworks & Programming Languages Used:
+> 
+> 1. Flutter & Dart -> User-Interface
+> 1. Python -> Azure Functions backend
 
 # User-Interface
 Home Screen             | Flights
