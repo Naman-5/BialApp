@@ -166,9 +166,11 @@ class _ProductDetailssState extends State<ProductDetailss> {
                         }
                       }
                       if(flag==1){
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Item added to the cart'),));
                       addItemtoCart(widget.shopname, widget.itemdet[0]["name"], widget.itemdet[0]["price"], widget.itemdet[0]["images"][0], 1, widget.ind, widget.itemdet, selectedSize);
                       }else{
                         print('Item is already in cart');
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Item is already in cart'),));
                       }
                     }
                     else{
