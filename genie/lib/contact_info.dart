@@ -10,6 +10,7 @@ class AirlineContact extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.indigo[300],
           leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
@@ -68,7 +69,10 @@ class _AirlineDetail extends StatelessWidget {
                         builder: (context) =>
                             _AirlineWebsite(website.toString())));
               },
-              child: Text(title))
+              child: Text(
+                title,
+                style: const TextStyle(color: Colors.indigo),
+              ))
         ],
       ),
     );
@@ -83,6 +87,7 @@ class _AirlineWebsite extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.indigo[300],
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {

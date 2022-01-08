@@ -39,6 +39,7 @@ class _FeedBack extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.indigo[300],
         title: const Text("Feedback & Comments"),
       ),
       body: SingleChildScrollView(
@@ -181,6 +182,9 @@ class _FeedBack extends StatelessWidget {
             ),
             TextButton(
                 onPressed: () async {
+                  if (FeedbackSupport.feedback.trim() == "") {
+                    FeedbackSupport.feedback = "no-comment";
+                  }
                   var url = Uri.parse(
                       'https://bialapp.azurewebsites.net/api/feedback?code=Veb2e7zPpaJzjO9d4vh3uE/3aTX7HDe6gUOIHvN5B5sN1ZXKFqU1IA==');
                   try {
@@ -197,16 +201,56 @@ class _FeedBack extends StatelessWidget {
                           'cleanliness': FeedbackSupport.cleanliness.toString(),
                           'comments': FeedbackSupport.feedback
                         }));
-                    print("response -> ${json.decode(response.body)}");
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const HomeScreen()));
+                    var message = json.decode(response.body);
+                    showDialog(
+                        context: context,
+                        builder: (constext) {
+                          return AlertDialog(
+                            title: const Text("FeedBack Status"),
+                            content: SizedBox(
+                              child: Text(message['status']),
+                              // width: MediaQuery.of(context).size.width,
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const HomeScreen()));
+                                },
+                                child: const Text("OK"),
+                              ),
+                            ],
+                          );
+                        });
                   } on Exception {
-                    print('failed');
+                    showDialog(
+                        context: context,
+                        builder: (constext) {
+                          return AlertDialog(
+                            title: const Text("Feedback Status"),
+                            content: const SizedBox(
+                              child: Text("Something went wrong. Try again"),
+                              // width: MediaQuery.of(context).size.width,
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Text("OK"),
+                              ),
+                            ],
+                          );
+                        });
                   }
                 },
-                child: const Text("Submit"))
+                child: const Text(
+                  "Submit",
+                  style: TextStyle(color: Colors.indigo),
+                ))
           ],
         ),
       )),
@@ -219,5 +263,5 @@ class FeedbackSupport {
   static double securityScreeningRating = 3;
   static double processes = 3;
   static double cleanliness = 3;
-  static String feedback = "";
+  static String feedback = "no-comments";
 }

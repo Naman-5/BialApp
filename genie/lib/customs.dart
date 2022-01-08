@@ -1,8 +1,12 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import '../sign_up.dart';
 import 'helper/check_signin.dart';
 import 'common_variables.dart';
+import 'home_screen.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 const _customWebsite =
     'https://www.cbic.gov.in/resources//htdocs-cbec/customs/forms_pdf/cs-bgge-declare-form1-ason19feb2014.pdf';
@@ -38,8 +42,8 @@ class _CustomDeclaration extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Customs Declaration Form'),
-      ),
+          title: const Text('Customs Declaration Form'),
+          backgroundColor: Colors.indigo[300]),
       body: SingleChildScrollView(
           child: Container(
         padding: const EdgeInsets.fromLTRB(10, 20, 10, 5),
@@ -51,6 +55,14 @@ class _CustomDeclaration extends StatelessWidget {
                 const Text('Passport Number: '),
                 Expanded(
                     child: TextField(
+                  decoration: const InputDecoration(
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.indigo),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.indigo),
+                    ),
+                  ),
                   controller: pnoController,
                   onChanged: (String text) {
                     CustomFormData.passportNumber = text;
@@ -71,6 +83,14 @@ class _CustomDeclaration extends StatelessWidget {
                 const Text('Flight Number: '),
                 Expanded(
                     child: TextField(
+                  decoration: const InputDecoration(
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.indigo),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.indigo),
+                    ),
+                  ),
                   controller: flightNumber,
                   onChanged: (String text) {
                     CustomFormData.flightNumber = text;
@@ -84,6 +104,14 @@ class _CustomDeclaration extends StatelessWidget {
                 const Text('Number of Baggages (including hand baggages):'),
                 Expanded(
                     child: TextField(
+                  decoration: const InputDecoration(
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.indigo),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.indigo),
+                    ),
+                  ),
                   keyboardType: TextInputType.number,
                   controller: baggages,
                   onChanged: (String text) {
@@ -112,6 +140,14 @@ class _CustomDeclaration extends StatelessWidget {
                   children: [
                     Expanded(
                         child: TextField(
+                      decoration: const InputDecoration(
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.indigo),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.indigo),
+                        ),
+                      ),
                       controller: countriesVisitedLastSixDays,
                       onChanged: (String text) {
                         CustomFormData.countriesVisitedLastSixDays = text;
@@ -133,6 +169,14 @@ class _CustomDeclaration extends StatelessWidget {
                   children: [
                     Expanded(
                         child: TextField(
+                      decoration: const InputDecoration(
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.indigo),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.indigo),
+                        ),
+                      ),
                       controller: valueOfGoods,
                       onChanged: (String text) {
                         CustomFormData.value = text;
@@ -253,12 +297,77 @@ class _CustomDeclaration extends StatelessWidget {
             ),
 
             IconButton(
-                onPressed: () {
-                  print(CustomFormData.questions);
+                onPressed: () async {
+                  var answers = [];
+                  for (var i in CustomFormData.questions.keys) {
+                    answers.add(CustomFormData.questions[i]);
+                  }
+                  var url = Uri.parse(
+                      'https://bialapp.azurewebsites.net/api/customs?code=l0yor27Vaoa9rrSPo1q2Xhvb/44RsKgyUKS6qOuSHvDku1rjkMQnSA==');
+                  try {
+                    const storage = FlutterSecureStorage();
+                    var response = await http.post(url,
+                        body: json.encode({
+                          'token': await storage.read(key: "signInToken"),
+                          'passport-no': CustomFormData.passportNumber,
+                          'arrival-date': CustomFormData.arrivalDate.toString(),
+                          'flight-no': CustomFormData.flightNumber,
+                          'coming-from': CustomFormData.arrivingCountry,
+                          'no-baggage': CustomFormData.baggages,
+                          'countries-visited':
+                              CustomFormData.countriesVisitedLastSixDays,
+                          'value': CustomFormData.value,
+                          'questions': answers,
+                        }));
+                    var message = json.decode(response.body);
+                    showDialog(
+                        context: context,
+                        builder: (constext) {
+                          return AlertDialog(
+                            title: const Text("Custom Declaration Status"),
+                            content: SizedBox(
+                              child: Text(message['message']),
+                              // width: MediaQuery.of(context).size.width,
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const HomeScreen()));
+                                },
+                                child: const Text("OK"),
+                              ),
+                            ],
+                          );
+                        });
+                  } on Exception {
+                    showDialog(
+                        context: context,
+                        builder: (constext) {
+                          return AlertDialog(
+                            title: const Text("Custom Declaration Status"),
+                            content: const SizedBox(
+                              child: Text('Something went wrong. Try again'),
+                              // width: MediaQuery.of(context).size.width,
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Text("OK"),
+                              ),
+                            ],
+                          );
+                        });
+                  }
                 },
                 icon: const Icon(
                   Icons.send_sharp,
-                  color: Colors.blue,
+                  color: Colors.indigo,
                 )),
 
             TextButton(
@@ -270,7 +379,9 @@ class _CustomDeclaration extends StatelessWidget {
                 },
                 child: const Text(
                   'More Details',
-                  style: TextStyle(decoration: TextDecoration.underline),
+                  style: TextStyle(
+                      decoration: TextDecoration.underline,
+                      color: Colors.indigo),
                 ))
           ],
         ),
@@ -391,6 +502,7 @@ class DateSelectButtonState extends State<DateSelectButton> {
         onPressed: () => showSelector(context),
         child: const Icon(
           Icons.date_range_rounded,
+          color: Colors.indigo,
         ));
   }
 }

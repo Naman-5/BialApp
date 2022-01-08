@@ -15,6 +15,7 @@ class SpecialAssist extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.indigo[300],
         leading: IconButton(
           icon: const Icon(Icons.close),
           onPressed: () {

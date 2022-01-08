@@ -24,6 +24,7 @@ class _MedicalAssistPageState extends State<MedicalAssistPage> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.indigo[300],
         actions: [],
       ),
       body: Container(
