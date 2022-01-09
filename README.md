@@ -27,9 +27,9 @@
 >
 
 <p align="center">
-<img src="Documentation/flutter.png" width="200">
-<img src="Documentation/dart.png" width="200"> 
-<img src="Documentation/python.png" width="200">
+<img src="Documentation/flutter.png" width="130">
+<img src="Documentation/dart.png" width="135"> 
+<img src="Documentation/python.png" width="130">
 </p>
 
 > Frameworks & Programming Languages Used:
