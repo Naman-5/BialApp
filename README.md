@@ -2,12 +2,6 @@
 ![Hackathon Banner](Documentation/hackathon_banner.png)
 
 # Project Title: BIAL-Concierge
-
-<video controls>
-  <source src="https://storageaccountbial8bd8.blob.core.windows.net/images/appDemo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-
 > Team: #3stack
 >
 > Team Members:
