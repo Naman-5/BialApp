@@ -3,6 +3,11 @@
 
 # Project Title: BIAL-Concierge
 
+<video controls>
+  <source src="Documentation/appDemo.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
 > Team: #3stack
 >
 > Team Members:
@@ -41,6 +46,10 @@
 Home Screen             | Flights
 :-------------------------:|:-------------------------:
 ![Home Page](Documentation/HomeScreen.png)  |  ![Flights Page](Documentation/flightsPage.png)
+
+Sign-In Screen             | Sign-up
+:-------------------------:|:-------------------------:
+![Sign-in Screen](Documentation/sign-in.png)  |  ![Sign-up Screen](Documentation/sign-up.png)
 
 ## Chat Bot
 <p align="center">
@@ -85,9 +94,16 @@ Passengers needing special assistance can request the airport staff using the mo
 
 ##  Lost and Found section
 <p align="center">
-<img src="Documentation/lostAndFound.png" width="270" > <img src="Documentation/lostItem.png" width="270" >
+<img src="Documentation/lostAndFound.png" width="270" > <img src="Documentation/lostItem.png" width="270" ></p>
 <p>
 With such large number of passengers visiting the airport everyday there would be many lost or missing items. Therefore, to make the process of reporting and claiming lost items easier we want to have a lost and found section in the application.</p>
+
+## Boarding Pass generation
+<p align="center">
+<img src="Documentation/profilePage.png" width="270" > <img src="Documentation/boardingPass.png" width="270" ></p>
+<p>
+There are always huge queues in front of check in desks at the airport. Despite having machines to allow passengers to self-check-in a lot of the passengers are not very comfortable using them. Having the option to generate an e-boarding pass within the application would make the check-in process convenient.
+</p>
 
 # Now Lets Talk about the Server-Side
 
