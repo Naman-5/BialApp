@@ -2,6 +2,7 @@
 ![Hackathon Banner](Documentation/hackathon_banner.png)
 
 # Project Title: BIAL-Concierge
+
 > Team: #3stack
 >
 > Team Members:
@@ -51,6 +52,12 @@ Sign-In Screen             | Sign-up
 </p>
 <p>
 Passengers can have various types of questions; some questions need to be answered by an actual human being, but a lot of the queries can be handled by a bot reducing staffing needs of the airport. Also, a bot can be available 24x7</p>
+
+> Chat Bot Commands:
+> - Flight Status \<Flight-No> -> Returns the status of the flight
+> - Help -> Returns the contact details for medical emergency
+> - Tell me something new -> Tells interesting facts about the airport
+>
 
 ## Customs Declaration
 <p align="center">
