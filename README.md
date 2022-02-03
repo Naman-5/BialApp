@@ -9,6 +9,8 @@
 > - Naman Mayer
 > - Nischith B
 > - Pulavarthy Harshik
+> 
+> Finished in the top 50 out of 11,000+ teams
 >
 
 # Tech-Stack
